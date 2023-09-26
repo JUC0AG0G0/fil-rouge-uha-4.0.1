@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>template_marque</title>
+    <link rel="icon" type="image/png" href="./img/monkey_narotu.png">
+    <link rel="stylesheet" type="text/css" href="./css/template_marque.css">
+</head>
+<body>
+    <div class="bg">
+        <img class="bg" src="./img/monkey_narotu.png">
+    </div>
+
+    <div class="select">
+        <div class="boite">
+
+            <div class="case">
+                <a href="#" class="div-link" data-target="div4">
+                    <img src="./img/vauxhall-logo-2019.svg" class="imgcase" style="filter: brightness(0) invert(1) grayscale(100%) sepia(0%) saturate(0%);">
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="info">
+        <div class="logopays">
+                <div class="logodescri">
+                    <img src="./img/vauxhall-logo-2019.svg" class="logodescription">
+                </div>
+            <div class="Pays">
+                <img src="./img/drapeau_svg/gb-eng.svg" class="paysorigine">
+                <p class="nompays">ANGLETERRE</p>
+            </div>
+            <hr class="ligne">    
+        </div>  
+        <div>  
+
+            <div class="div-container" id="div4">
+                <div>
+                    <span>
+                        Marque : 
+                    </span>
+                    <span>
+                        Vauxhall
+                    </span>
+                </div>
+                <br>
+                <div>
+                    <span>
+                        Création :
+                    </span>
+                    <span>
+                        1857
+                    </span>
+                </div>
+                <br>
+                <div>
+                    <span>
+                        Fondateur :
+                    </span>
+                    <span>
+                        inconu 
+                    </span>
+                </div>
+                <br>
+                <div>
+                    <span>
+                        Usines : 
+                    </span>
+                    <span>
+                        Angleterre, USA, London City
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const divLinks = document.querySelectorAll('.div-link');
+        const divs = document.querySelectorAll('.div-container');
+
+        divLinks.forEach((divLink) => {
+            divLink.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                divs.forEach((div) => {
+                    div.style.display = 'none';
+                });
+
+                const targetDivId = divLink.getAttribute('data-target');
+                const targetDiv = document.getElementById(targetDivId);
+
+                targetDiv.style.display = 'block';
+            });
+        });
+    </script>   
+
+
+    <a href="./europe.html">
+        <div class="buttonback">
+                <img src="./img/97591.svg" class="imgback" style="height: 80%; width: 80%;">
+        </div>
+    </a>
+
+
+</body>
+</html>
+
+

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>template_marque</title>
+    <link rel="icon" type="image/png" href="./img/monkey_narotu.png">
+    <link rel="stylesheet" type="text/css" href="./css/template_marque.css">
+</head>
+<body>
+    <div class="bg">
+        <img src="./img/monkey_narotu.png" class="bg">
+    </div>
+    <div class="select">
+        <div class="boite">
+            <div class="case">
+                <a href="#" class="div-link" data-target="div1">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/BMW_E21_front_20080331.jpg/560px-BMW_E21_front_20080331.jpg" class="imgcase">
+                </a>
+            </div>
+            <div class="case">
+                <a href="#" class="div-link" data-target="div2">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/2016_BMW_7-Series_%28G11%29_sedan%2C_front_view.jpg/560px-2016_BMW_7-Series_%28G11%29_sedan%2C_front_view.jpg" class="imgcase">
+                </a>
+            </div>
+            <div class="case">
+                <a href="#" class="div-link" data-target="div4">
+                    <img src="./img/bmw-logo.svg" class="imgcase" style="filter: brightness(0) invert(1) grayscale(100%) sepia(0%) saturate(0%);">
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="info">
+        <div class="logopays">
+                <div class="logodescri">
+                    <img src="./img/bmw-logo.svg" class="logodescription">
+                </div>
+            <div class="Pays">
+                <img src="./img/drapeau_svg/de.svg" class="paysorigine">
+                <p class="nompays">ALLEMAGNE</p>
+            </div>
+            <hr class="ligne">    
+        </div>  
+        <div>
+            <div class="div-container" id="div1">
+                <div>
+                    <span>
+                        Nom : 
+                    </span>
+                    <span>
+                        BMW Serie 3 (E21)
+                    </span>
+                </div>
+                <br>
+                <div>
+                    <span>
+                        Année :
+                    </span>
+                    <span>
+                        1975 - 1983
+                    </span>
+                </div>
+                <br>
+                <div>
+                    <span>
+                        Production :
+                    </span>
+                    <span>
+                        1364039 
+                    </span>
+                </div>
+            </div>
+            <div class="div-container" id="div2">
+                <div>
+                    <span>
+                        Nom : 
+                    </span>
+                    <span>
+                        BMW Serie 7
+                    </span>
+                </div>
+                <br>
+                <div>
+                    <span>
+                        Année :
+                    </span>
+                    <span>
+                        depuis 1977
+                    </span>
+                </div>
+                <br>
+                <div>
+                    <span>
+                        Production :
+                    </span>
+                    <span>
+                        999999 
+                    </span>
+                </div>
+            </div>
+            <div class="div-container" id="div4">
+                <div>
+                    <span>
+                        Marque : 
+                    </span>
+                    <span>
+                        bmw
+                    </span>
+                </div>
+                <br>
+                <div>
+                    <span>
+                        Création :
+                    </span>
+                    <span>
+                        1916
+                    </span>
+                </div>
+                <br>
+                <div>
+                    <span>
+                        Fondateur :
+                    </span>
+                    <span>
+                        Gustav Otto, Karl Rapp
+                    </span>
+                </div>
+                <br>
+                <div>
+                    <span>
+                        Usines : 
+                    </span>
+                    <span>
+                        Melfi, Allemagne, Dingolfing
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const divLinks = document.querySelectorAll('.div-link');
+        const divs = document.querySelectorAll('.div-container');
+
+        divLinks.forEach((divLink) => {
+            divLink.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                divs.forEach((div) => {
+                    div.style.display = 'none';
+                });
+
+                const targetDivId = divLink.getAttribute('data-target');
+                const targetDiv = document.getElementById(targetDivId);
+
+                targetDiv.style.display = 'block';
+            });
+        });
+    </script>   
+
+
+    <a href="./europe.html">
+        <div class="buttonback">
+                <img src="./img/97591.svg" class="imgback" style="height: 80%; width: 80%;">
+        </div>
+    </a>
+
+
+</body>
+</html>
+
+

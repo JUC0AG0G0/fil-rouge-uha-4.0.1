@@ -1,0 +1,74 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    background-image: url(/img/porsche_museum.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  
+}
+
+a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+
+}
+
+.world_map{
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background-image: url(/img/36479.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity:  100%;
+    
+}
+
+.selection{
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    left: 1%;
+    bottom: 5%;
+    margin: 1%;
+
+}
+
+.continent{ 
+    position: relative;
+    top: 35vh;
+    display: inline-block;
+    justify-content: center;
+    vertical-align: middle;
+    width: 33%;
+
+}
+
+.mmm{
+    display: flex;
+    justify-content: center;   
+
+}
+
+
+.bc{
+    height: 25%;
+    width: 70%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50px;
+    outline: 3px solid white;
+    backdrop-filter: blur(12px);    
+
+}
+
+.bc:hover{
+    backdrop-filter: blur(5px);   
+    outline: 4px solid white;
+    
+}
