@@ -11,7 +11,37 @@
     <div class="bc">
     <!-- <iframe class="bc" src="https://www.youtube.com/embed/A4Wrgh9XCkc?autoplay=1&loop=1&playlist=A4Wrgh9XCkc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
         <video class="bc"  autoplay loop muted>
-            <source  src="./video/marques/BMW.mp4" type="video/mp4">
+            
+            <?php
+                // Appel API pour obtenir les données de la marque
+                $api_url = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
+                $ch = curl_init($api_url);
+                $options = [
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_HTTPHEADER => [
+                    'Authorization: Bearer ' . $api_key // Assurez-vous d'avoir une variable $api_key définie avec votre clé d'API.
+                    ]
+                ];
+                curl_setopt_array($ch, $options);
+                $response = curl_exec($ch);
+                if ($response === false) {
+                    echo 'Erreur lors de la requête cURL : ' . curl_error($ch);
+                } else {
+                    $decoded_data = json_decode($response);
+                    if ($decoded_data === null) {
+                        echo 'Erreur lors du décodage des données JSON.';
+                    } else {
+                        foreach ($decoded_data as $item) {
+                            if ($item->id === 1) {
+                                $nom = $item->nom;
+                                // Supprimez le point inutile dans le chemin de l'image
+                                echo '<source  src="./video/marques/' . $nom . '.mp4" type="video/mp4">';
+                            }
+                       }
+                    }
+                }
+                curl_close($ch);
+            ?>
         </video>
     </div>
 
