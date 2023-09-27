@@ -3,41 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>template_marque</title>
+    <title>test url template_marque</title>
     <link rel="icon" type="image/png" href="./img/monkey_narotu.png">
     <link rel="stylesheet" type="text/css" href="./css/template_marque.css">
 </head>
 <body>
     <div class="bc">
-    <!-- <iframe class="bc" src="https://www.youtube.com/embed/A4Wrgh9XCkc?autoplay=1&loop=1&playlist=A4Wrgh9XCkc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
         <video class="bc"  autoplay loop muted>
             
             <?php
-                // Appel API pour obtenir les données de la marque
-                $api_url = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
+                $api_url = ('https://filrouge.uha4point0.fr/V2/car/constructeurs');
                 $ch = curl_init($api_url);
-                $options = [
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_HTTPHEADER => [
-                    'Authorization: Bearer ' . $api_key // Assurez-vous d'avoir une variable $api_key définie avec votre clé d'API.
-                    ]
-                ];
-                curl_setopt_array($ch, $options);
-                $response = curl_exec($ch);
-                if ($response === false) {
-                    echo 'Erreur lors de la requête cURL : ' . curl_error($ch);
-                } else {
-                    $decoded_data = json_decode($response);
-                    if ($decoded_data === null) {
-                        echo 'Erreur lors du décodage des données JSON.';
-                    } else {
-                        foreach ($decoded_data as $item) {
-                            if ($item->id === 1) {
-                                $nom = $item->nom;
-                                // Supprimez le point inutile dans le chemin de l'image
-                                echo '<source  src="./video/marques/' . $nom . '.mp4" type="video/mp4">';
-                            }
-                       }
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                $numid = $_GET['id'];
+                $json_data = curl_exec($ch);
+                $response_data = json_decode($json_data);
+                if (is_array($response_data)){
+                    foreach ($response_data as $item) {
+                        if($item->id == $numid){
+                            echo '<source  src="./video/marques/'.$item->nom.'.mp4" type="video/mp4">';
+                        }
                     }
                 }
                 curl_close($ch);
@@ -53,33 +38,20 @@
 
 
                         <?php
-                            // Appel API pour obtenir les données de la marque
-                            $api_url = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
+                            $api_url = ('https://filrouge.uha4point0.fr/V2/car/constructeurs');
                             $ch = curl_init($api_url);
-                            $options = [
-                                CURLOPT_RETURNTRANSFER => true,
-                                CURLOPT_HTTPHEADER => [
-                                    'Authorization: Bearer ' . $api_key // Assurez-vous d'avoir une variable $api_key définie avec votre clé d'API.
-                                ]
-                            ];
-                            curl_setopt_array($ch, $options);
-                            $response = curl_exec($ch);
-                            if ($response === false) {
-                                echo 'Erreur lors de la requête cURL : ' . curl_error($ch);
-                            } else {
-                                $decoded_data = json_decode($response);
-                                if ($decoded_data === null) {
-                                    echo 'Erreur lors du décodage des données JSON.';
-                                } else {
-                                    foreach ($decoded_data as $item) {
-                                        if ($item->id === 2) {
-                                            $nom = $item->nom;
-                                            // Supprimez le point inutile dans le chemin de l'image
-                                            echo '<img src="./img/logo_marque/' . $nom . '.svg" class="imgcase" style="filter: brightness(0) invert(1) grayscale(100%) sepia(0%) saturate(0%);">';
-                                        }
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                            $numid = $_GET['id'];
+                            $json_data = curl_exec($ch);
+                            $response_data = json_decode($json_data);
+                            if (is_array($response_data)){
+                                foreach ($response_data as $item) {
+                                    if($item->id == $numid){
+                                            echo '<img src="./img/logo_marque/' .$item->nom.'.svg" class="imgcase" style="filter: brightness(0) invert(1) grayscale(100%) sepia(0%) saturate(0%);">';
                                     }
                                 }
                             }
+                            
                             curl_close($ch);
                         ?>
 
@@ -93,30 +65,17 @@
         <div class="logopays">
             <div class="logodescri">
                 <?php
-                    // Appel API pour obtenir les données de la marque
-                    $api_url = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
+                    $api_url = ('https://filrouge.uha4point0.fr/V2/car/constructeurs');
                     $ch = curl_init($api_url);
-                    $options = [
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_HTTPHEADER => [
-                            'Authorization: Bearer ' . $api_key // Assurez-vous d'avoir une variable $api_key définie avec votre clé d'API.
-                        ]
-                    ];
-                    curl_setopt_array($ch, $options);
-                    $response = curl_exec($ch);
-                    if ($response === false) {
-                        echo 'Erreur lors de la requête cURL : ' . curl_error($ch);
-                    } else {
-                        $decoded_data = json_decode($response);
-                        if ($decoded_data === null) {
-                            echo 'Erreur lors du décodage des données JSON.';
-                        } else {
-                            foreach ($decoded_data as $item) {
-                                if ($item->id === 2) {
-                                    $nom = $item->nom;
-                                    // Supprimez le point inutile dans le chemin de l'image
-                                    echo '<img src="./img/logo_marque/' . $nom . '.svg" class="logodescription">';
-                                }
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    $numid = $_GET['id'];
+                    $json_data = curl_exec($ch);
+                    $response_data = json_decode($json_data);
+                    if (is_array($response_data)){
+                        foreach ($response_data as $item) {
+                            if($item->id == $numid){
+                                    echo '<img src="./img/logo_marque/'.$item->nom.'.svg" class="logodescription">';
+                                
                             }
                         }
                     }
@@ -125,31 +84,20 @@
             </div>
             <div class="Pays">
                 <?php
-                    // Appel API pour obtenir le pays d'origine de la marque
-                    $api_url = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
+                    $api_url = ('https://filrouge.uha4point0.fr/V2/car/constructeurs');
                     $ch = curl_init($api_url);
-                    $options = [
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_HTTPHEADER => [
-                            'Authorization: Bearer ' . $api_key // Assurez-vous d'avoir une variable $api_key définie avec votre clé d'API.
-                        ]
-                    ];
-                    curl_setopt_array($ch, $options);
-                    $response = curl_exec($ch);
-                    if ($response === false) {
-                        echo 'Erreur lors de la requête cURL : ' . curl_error($ch);
-                    } else {
-                        $decoded_data = json_decode($response);
-                        if ($decoded_data === null) {
-                            echo 'Erreur lors du décodage des données JSON.';
-                        } else {
-                            foreach ($decoded_data as $item) {
-                                if ($item->id === 2) {
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    $numid = $_GET['id'];
+                    $json_data = curl_exec($ch);
+                    $response_data = json_decode($json_data);
+                    if (is_array($response_data)){
+                        foreach ($response_data as $item) {
+                            if($item->id == $numid){
                                     $pays = $item->pays;
                                     // Supprimez le point inutile dans le chemin de l'image
                                     echo '<img src="./img/drapeau_svg/' . $pays . '.svg" class="paysorigine">';
                                     echo '<p class="nompays">' . $pays . '</p>';
-                                }
+                                
                             }
                         }
                     }
@@ -162,26 +110,15 @@
             <div class="div-container" id="div1">
                 
                 <?php
-                    // Appel API pour obtenir les détails de la marque
-                    $api_url = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
+                    $api_url = ('https://filrouge.uha4point0.fr/V2/car/constructeurs');
                     $ch = curl_init($api_url);
-                    $options = [
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_HTTPHEADER => [
-                            'Authorization: Bearer ' . $api_key
-                        ]
-                    ];
-                    curl_setopt_array($ch, $options);
-                    $response = curl_exec($ch);
-                    if ($response === false) {
-                        echo 'Erreur lors de la requête cURL : ' . curl_error($ch);
-                    } else {
-                        $decoded_data = json_decode($response);
-                        if ($decoded_data === null) {
-                            echo 'Erreur lors du décodage des données JSON.';
-                        } else {
-                            foreach ($decoded_data as $item) {
-                                if ($item->id === 2) {
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    $numid = $_GET['id'];
+                    $json_data = curl_exec($ch);
+                    $response_data = json_decode($json_data);
+                    if (is_array($response_data)){
+                        foreach ($response_data as $item) {
+                            if($item->id == $numid){
                                     echo '<div><span> Marque : </span><span>' . $item->nom . '</span></div><br>';
                                     echo '<div><span> Creation : </span><span>' . $item->creation . '</span></div><br>';
                                     echo '<div><span> Fondateur : </span><span>' . $item->fondateur . '</span></div><br>';
@@ -191,7 +128,7 @@
                                     }
                                     echo '</div><br>';
                                     break;
-                                }
+                                
                             }
                         }
                     }
