@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test url template_marque</title>
+    <title>Info constructeurs</title>
     <link rel="icon" type="image/png" href="./img/monkey_narotu.png">
     <link rel="stylesheet" type="text/css" href="./css/template_marque.css">
 </head>
@@ -158,7 +158,7 @@
         });
     </script>
 
-    <a href="./europe.php">
+    <a href="./index.php">
         <div class="buttonback">
             <img src="./img/97591.svg" class="imgback" style="height: 80%; width: 80%;">
         </div>
