@@ -19,7 +19,7 @@
     <div class="select">
         <div class="boite">
             <div class="case">
-                <a href="#" class="div-link" data-target="div4">
+                <a href="#" class="div-link" data-target="div1">
 
 
                         <?php
@@ -129,7 +129,7 @@
             <hr class="ligne">
         </div>
         <div>
-            <div class="div-container" id="div4">
+            <div class="div-container" id="div1">
                 
                 <?php
                     // Appel API pour obtenir les détails de la marque
