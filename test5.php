@@ -145,11 +145,6 @@
         });
     </script>
 
-    <script>
-        
-
-        
-    </script>  
 
 
 

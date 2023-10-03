@@ -3,191 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>template_marque</title>
+    <title>constructeurs</title>
     <link rel="icon" type="image/png" href="./img/monkey_narotu.png">
-    <link rel="stylesheet" type="text/css" href="./css/template_marque.css">
+    <link rel="stylesheet" type="text/css" href="./css/continent.css">
 </head>
 <body>
-    <div class="select">
-        <div class="boite">
-            <div class="case">
-                <a href="#" class="div-link" data-target="div4">
-                        <?php
-                            // Appel API pour obtenir les données de la marque
-                            $api_url = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
-                            $ch = curl_init($api_url);
-                            $options = [
-                                CURLOPT_RETURNTRANSFER => true,
-                                CURLOPT_HTTPHEADER => [
-                                    'Authorization: Bearer ' . $api_key // Assurez-vous d'avoir une variable $api_key définie avec votre clé d'API.
-                                ]
-                            ];
-                            curl_setopt_array($ch, $options);
-                            $response = curl_exec($ch);
-                            if ($response === false) {
-                                echo 'Erreur lors de la requête cURL : ' . curl_error($ch);
-                            } else {
-                                $decoded_data = json_decode($response);
-                                if ($decoded_data === null) {
-                                    echo 'Erreur lors du décodage des données JSON.';
-                                } else {
-                                    foreach ($decoded_data as $item) {
-                                        if ($item->id === 2) {
-                                            $nom = $item->nom;
-                                            // Supprimez le point inutile dans le chemin de l'image
-                                            echo '<img src="./img/logo_marque/' . $nom . '.svg" class="imgcase" style="filter: brightness(0) invert(1) grayscale(100%) sepia(0%) saturate(0%);">';
-                                        }
-                                    }
-                                }
-                            }
-                            curl_close($ch);
-                        ?>
-
-
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="info">
-        <div class="logopays">
-            <div class="logodescri">
-                <?php
-                    // Appel API pour obtenir les données de la marque
-                    $api_url = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
-                    $ch = curl_init($api_url);
-                    $options = [
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_HTTPHEADER => [
-                            'Authorization: Bearer ' . $api_key // Assurez-vous d'avoir une variable $api_key définie avec votre clé d'API.
-                        ]
-                    ];
-                    curl_setopt_array($ch, $options);
-                    $response = curl_exec($ch);
-                    if ($response === false) {
-                        echo 'Erreur lors de la requête cURL : ' . curl_error($ch);
-                    } else {
-                        $decoded_data = json_decode($response);
-                        if ($decoded_data === null) {
-                            echo 'Erreur lors du décodage des données JSON.';
-                        } else {
-                            foreach ($decoded_data as $item) {
-                                if ($item->id === 2) {
-                                    $nom = $item->nom;
-                                    // Supprimez le point inutile dans le chemin de l'image
-                                    echo '<img src="./img/logo_marque/' . $nom . '.svg" class="logodescription">';
-                                }
-                            }
-                        }
-                    }
-                    curl_close($ch);
-                ?>
-            </div>
-            <div class="Pays">
-                <?php
-                    // Appel API pour obtenir le pays d'origine de la marque
-                    $api_url = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
-                    $ch = curl_init($api_url);
-                    $options = [
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_HTTPHEADER => [
-                            'Authorization: Bearer ' . $api_key // Assurez-vous d'avoir une variable $api_key définie avec votre clé d'API.
-                        ]
-                    ];
-                    curl_setopt_array($ch, $options);
-                    $response = curl_exec($ch);
-                    if ($response === false) {
-                        echo 'Erreur lors de la requête cURL : ' . curl_error($ch);
-                    } else {
-                        $decoded_data = json_decode($response);
-                        if ($decoded_data === null) {
-                            echo 'Erreur lors du décodage des données JSON.';
-                        } else {
-                            foreach ($decoded_data as $item) {
-                                if ($item->id === 2) {
-                                    $pays = $item->pays;
-                                    // Supprimez le point inutile dans le chemin de l'image
-                                    echo '<img src="./img/drapeau_svg/' . $pays . '.svg" class="paysorigine">';
-                                    echo '<p class="nompays">' . $pays . '</p>';
-                                }
-                            }
-                        }
-                    }
-                    curl_close($ch);
-                ?>
-            </div>
-            <hr class="ligne">
-        </div>
-        <div>
-            <div class="div-container" id="div4">
-
-                    <?php
-                        // Appel API pour obtenir les détails de la marque
-                        $api_url = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
-                        $ch = curl_init($api_url);
-                        $options = [
-                            CURLOPT_RETURNTRANSFER => true,
-                            CURLOPT_HTTPHEADER => [
-                                'Authorization: Bearer ' . $api_key
-                            ]
-                        ];
-                        curl_setopt_array($ch, $options);
-                        $response = curl_exec($ch);
-                        if ($response === false) {
-                            echo 'Erreur lors de la requête cURL : ' . curl_error($ch);
-                        } else {
-                            $decoded_data = json_decode($response);
-                            if ($decoded_data === null) {
-                                echo 'Erreur lors du décodage des données JSON.';
-                            } else {
-                                foreach ($decoded_data as $item) {
-                                    if ($item->id === 2 ) {
-                                        echo '<div><span> Marque : </span><span>' . $item->nom . '</span></div><br>';
-                                        echo '<div><span> Creation : </span><span>' . $item->creation . '</span></div><br>';
-                                        echo '<div><span> Fondateur : </span><span>' . $item->fondateur . '</span></div><br>';
-                                        echo '<div><span> Usines : </span>';
-                                        foreach ($item->usines as $usine) {
-                                            echo '<span>' . $usine . '</span> ';
-                                        }
-                                        echo '</div><br>';
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        curl_close($ch);
-                    ?>
-
-
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const divLinks = document.querySelectorAll('.div-link');
-        const divs = document.querySelectorAll('.div-container');
-
-        divLinks.forEach((divLink) => {
-            divLink.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                divs.forEach((div) => {
-                    div.style.display = 'none';
-                });
-
-                const targetDivId = divLink.getAttribute('data-target');
-                const targetDiv = document.getElementById(targetDivId);
-
-                targetDiv.style.display = 'block';
-            });
-        });
-    </script>
-
-    <a href="./europe.php">
+    <img class="world_map" src="./img/36479.svg">
+    <div class="noir"></div>
+    <a href="./index.php">
         <div class="buttonback">
-            <img src="./img/97591.svg" class="imgback" style="height: 80%; width: 80%;">
+                <img src="./img/97591.svg" class="imgback" style="height: 80%; width: 80%;">
         </div>
     </a>
+    <div class="scroller">        
+        <?php
+            $api_url = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
+            $ch = curl_init($api_url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $json_data = curl_exec($ch);
+            $response_data = json_decode($json_data);
+            if (is_array($response_data)) {
+                $marquesParPays = [];
+                foreach ($response_data as $item) {
+                    $pays = $item->pays;
+                    $marque = '<a href="./template_marque.php?id=' . $item->id . '"><div class="boutondiv"><img src="./img/logo_marque/' . $item->nom . '.svg" class="logoimg"></div></a>';
+                    if (!isset($marquesParPays[$pays])) {
+                        $marquesParPays[$pays] = $marque;
+                    } else {
+                        $marquesParPays[$pays] .= $marque;
+                    }
+                }
+                foreach ($marquesParPays as $pays => $marques) {
+                    echo '<div class="partie"><div class="pays"><img src="./img/drapeau_svg/' . $pays . '.svg" class="imgpays"><h1 class="txtpays">' . $pays . '</h1></div><div class="marques">' . $marques . '</div><hr></div>';
+                }
+            }
 
+            curl_close($ch);
+        ?>
+        
+    </div>
 </body>
 </html>
