@@ -6,6 +6,7 @@
     <title>Info constructeurs</title>
     <link rel="icon" type="image/png" href="./img/monkey_narotu.png">
     <link rel="stylesheet" type="text/css" href="./css/template_marque.css">
+    <script src="./Js/script_tm.js"></script>
 </head>
 <body>
     <div class="bc">
@@ -129,25 +130,7 @@
         </div>
     </div>
 
-    <script>
-        const divLinks = document.querySelectorAll('.div-link');
-        const divs = document.querySelectorAll('.div-container');
 
-        divLinks.forEach((divLink) => {
-            divLink.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                divs.forEach((div) => {
-                    div.style.display = 'none';
-                });
-
-                const targetDivId = divLink.getAttribute('data-target');
-                const targetDiv = document.getElementById(targetDivId);
-
-                targetDiv.style.display = 'block';
-            });
-        });
-    </script>
 
     <a href="./constructeur.php">
         <div class="buttonback">
