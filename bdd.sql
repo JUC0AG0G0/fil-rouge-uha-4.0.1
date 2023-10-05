@@ -1,3 +1,11 @@
+DROP DATABASE IF EXISTS fil_rouge_401_Corneille_Jules;
+
+CREATE DATABASE IF NOT EXISTS fil_rouge_401_Conrneille_Jules;
+
+USE fil_rouge_401_Corneille_Jules;
+
+
+
 -- Création de la table ApiConstructeur
 CREATE TABLE ApiConstructeur (
     id INT AUTO_INCREMENT PRIMARY KEY,
