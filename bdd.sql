@@ -17,7 +17,8 @@ CREATE TABLE ApiConstructeur (
 CREATE TABLE UsinesConstructeur (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_constructeurs INT NOT NULL,
-    usines VARCHAR(255) NOT NULL
+    usines VARCHAR(255) NOT NULL,
+    FOREIGN KEY (id_constructeurs) REFERENCES ApiConstructeur(id)
 );
 
 -- Création de la table ApiVoitures
@@ -27,7 +28,8 @@ CREATE TABLE ApiVoitures (
     description VARCHAR(255) NOT NULL,
     constructeur INT NOT NULL,
     production INT NOT NULL,
-    image VARCHAR(255) NOT NULL
+    image VARCHAR(255) NOT NULL,
+    FOREIGN KEY (constructeur) REFERENCES ApiConstructeur(id)
 );
 
 
@@ -40,7 +42,7 @@ VALUES
     ('Vauxhall', 1857, 'inconnu', 'Angleterre'),
     ('Fiat', 1899, 'Giovanni Agnelli', 'Italie'),
     ('Honda', 1948, 'Soichiro Honda et Takeo Fujisawa', 'Japon'),
-    ('Tesla', 2003, 'Eloun Mousk', 'Etats-Unis');
+    ('Tesla', 2003, 'Elon Musk', 'Etats-Unis');
 
 -- Insertion de données des usines pour le constructeur Renault
 INSERT INTO UsinesConstructeur (id_constructeurs, usines)
