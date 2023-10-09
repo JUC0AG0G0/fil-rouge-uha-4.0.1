@@ -1,8 +1,21 @@
+-- Créez un utilisateur et attribuez-lui des privilèges pour la base de données fil_rouge_401_Corneille_Jules
+CREATE USER IF NOT EXISTS 'Fil_Rouge_Jules_Conrneille'@'localhost' IDENTIFIED BY 'jesaispasquoimettreenmotdepasse';
+
+
+
+
 DROP DATABASE IF EXISTS fil_rouge_401_Corneille_Jules;
 
 CREATE DATABASE IF NOT EXISTS fil_rouge_401_Corneille_Jules;
 
 USE fil_rouge_401_Corneille_Jules;
+
+-- Accordez à l'utilisateur les privilèges pour la base de données
+GRANT ALL PRIVILEGES ON fil_rouge_401_Corneille_Jules.* TO 'Fil_Rouge_Jules_Conrneille'@'localhost';
+
+-- Rechargez les privilèges pour que les modifications prennent effet
+FLUSH PRIVILEGES;
+
 
 -- Création de la table ApiConstructeur
 CREATE TABLE ApiConstructeur (
