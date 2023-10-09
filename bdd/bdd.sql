@@ -16,9 +16,17 @@ CREATE TABLE ApiConstructeur (
 -- Création de la table UsinesConstructeur
 CREATE TABLE UsinesConstructeur (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    usines VARCHAR(255) NOT NULL
+);
+
+-- Création de la table LinkUsines
+CREATE TABLE LinkUsines (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     id_constructeurs INT NOT NULL,
-    usines VARCHAR(255) NOT NULL,
-    FOREIGN KEY (id_constructeurs) REFERENCES ApiConstructeur(id)
+    idusines INT NOT NULL,
+    FOREIGN KEY (id_constructeurs) REFERENCES ApiConstructeur(id),
+    FOREIGN KEY (idusines) REFERENCES UsinesConstructeur(id)
+
 );
 
 -- Création de la table ApiVoitures
@@ -32,7 +40,6 @@ CREATE TABLE ApiVoitures (
     FOREIGN KEY (constructeur) REFERENCES ApiConstructeur(id)
 );
 
-
 -- Insertion de données depuis la première API (constructeurs)
 INSERT INTO ApiConstructeur (nom, creation, fondateur, pays)
 VALUES
@@ -44,16 +51,27 @@ VALUES
     ('Honda', 1948, 'Soichiro Honda et Takeo Fujisawa', 'Japon'),
     ('Tesla', 2003, 'Elon Musk', 'Etats-Unis');
 
--- Insertion de données des usines pour le constructeur Renault
-INSERT INTO UsinesConstructeur (id_constructeurs, usines)
+-- Insertion de données des usines pour le constructeur 
+INSERT INTO UsinesConstructeur (usines)
 VALUES
-    (1, 'Palencia'), (1, 'Douai'), (1, 'Bursa'), (1, 'France'), (1, 'Palencia'), (1, 'Sandouville'), (1, 'Dieppe'),
-    (2, 'Melfi'), (2, 'Allemagne'), (2, 'Dingolfing'),
-    (3, 'Allemagne'), (3, 'France'),
-    (4, 'Angleterre'), (4, 'USA'), (4, 'London City'),
-    (5, 'Melfi'), (5, 'Betim'), (5, 'Palencia'), (5, 'Rangaojon'), (5, 'France'), (5, 'Cordoba'), (5, 'Betim'), (5, 'Nanjing'), (5, 'Kurla'), (5, 'Casablanca'),
-    (6, 'Tokio'), (6, 'Chine'), (6, 'Inde'), (6, 'Melbourne'),
-    (7, 'Berlin'), (7, 'Texas'), (7, 'Chine');
+    ('Palencia'), ('Douai'), ('Bursa'), ('France'), ('Palencia'), ('Sandouville'), ('Dieppe'),
+    ('Melfi'), ('Allemagne'), ('Dingolfing'),
+    ('Allemagne'), ('France'),
+    ('Angleterre'), ('USA'), ('London City'),
+    ('Melfi'), ('Betim'), ('Palencia'), ('Rangaojon'), ('France'), ('Cordoba'), ('Betim'), ('Nanjing'), ('Kurla'), ('Casablanca'),
+    ('Tokio'), ('Chine'), ('Inde'), ('Melbourne'),
+    ('Berlin'), ('Texas'), ('Chine');
+
+-- Insertion de données des lien des usines pour le constructeur
+INSERT INTO LinkUsines (id_constructeurs, idusines)
+VALUES
+    (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7),
+    (2, 8), (2, 9), (2, 10),
+    (3, 11), (3, 12),
+    (4, 13), (4, 14), (4, 15),
+    (5, 16), (5, 17), (5, 18), (5, 19), (5, 20), (5, 21), (5, 22), (5, 23), (5, 24), (5, 25),
+    (6, 26), (6, 27), (6, 28), (6, 29),
+    (7, 30), (7, 31), (7, 32);
 
 -- Insertion de données depuis la deuxième API (voitures)
 INSERT INTO ApiVoitures (nom, description, constructeur, production, image)
@@ -69,4 +87,3 @@ VALUES
     ('Tesla Model Y', '0 - ∞', 7, 1, 'https://europe.radioflyer.com/media/catalog/product/m/y/my-first-model-y-inset-profile-side-right-model-633.jpg'),
     ('Tesla Model S', '0 - ∞', 7, 1, 'https://s1.cdn.autoevolution.com/images/news/funny-spacex-parody-features-tesla-model-s-dancing-elon-musk-video-94527_1.jpg'),
     ('Tesla Model X', '0 - ∞', 7, 1, 'https://www.carscoops.com/wp-content/uploads/2023/04/Tesla-Model-X-Danubea.jpg');
-
