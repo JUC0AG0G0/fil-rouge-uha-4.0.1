@@ -1,0 +1,118 @@
+body{
+    background-image: url(../img/porsche_museum.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+
+    
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.main{
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    height: 80vh;
+    z-index: 30;
+    /* background-color: aqua; */
+}
+
+.menu{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 15%;
+    width: 100%;
+    display: flex;
+    /* background-color: brown; */
+
+}
+
+.choix{
+    background-color: gray;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 16%;
+}
+
+
+.formulaire{
+    position: absolute;
+    top: 15%;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+
+    /* background-color: yellow; */
+
+}
+
+
+.worldmap{
+    background-image: url(../img/36479.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    right: 5%;
+    bottom: 5%;
+    height: 90vh;
+    width: 90vw;
+}
+
+.noir{
+    background-color: rgba( 0, 0, 0, 0.6);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(5px);
+}
+
+.buttonback{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    margin: 50px;
+    height: 10vh;
+    width: 10vh;
+    display: inline-block;
+    justify-content: center;
+    vertical-align: middle;
+    border-radius: 50%;
+    outline: 4px solid white;
+    z-index: 20;
+    box-shadow: rgba(255, 255, 255, 0.4) 0px 0px 60px;
+    backdrop-filter: blur(1px);
+
+}
+
+.buttonback:hover{
+    box-shadow: rgba(255, 255, 255, 0.6) 0px 0px 70px;
+    outline: 5px solid white;
+    backdrop-filter: blur(3px);
+
+}
+
+.imgback{
+    position: relative;
+    left: 10%;
+    right: 10%;
+    top: 10%;
+    bottom: 10%;
+
+}
