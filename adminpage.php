@@ -25,48 +25,42 @@
 
     <div class="main" >
         <div class="menu" >
-            <a href="" class="choix" >    
+            <button class="choix" >    
                 <div>
                     <h2>Ajouter un constructeur</h2>
                 </div>
-            </a>
-            <a href="" class="choix" >    
+            </button>
+            <button class="choix" >    
                 <div>
                     <h2>Ajouter une voiture</h2>
                 </div>
-            </a>
-            <a href="" class="choix" >    
+            </button>
+            <button class="choix" >    
                 <div>
                     <h2>Suprimer un constructeur</h2>
                 </div>
-            </a>
-            <a href="" class="choix" >    
+            </button>
+            <button class="choix" >    
                 <div>
                     <h2>Suprimer une voiture</h2>
                 </div>
-            </a>
-            <a href="" class="choix" >    
+            </button>
+            <button class="choix" id="supr_all" >    
                 <div>
                     <h2>Suprimer toute la BDD</h2>
                 </div>
-            </a>
-            <a href="" class="choix" >    
+            </button>
+            <button class="choix" id="res_bdd">    
                 <div>
                     <h2>Renitialiser la BDD</h2>
                 </div>
-            </a>
-
-
-
-
-
+            </button>
         </div>
         <div class="formulaire">
 
 
+
         </div>
 </div>
-
-
 </body>
 </html>
