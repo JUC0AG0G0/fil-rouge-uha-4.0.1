@@ -1,5 +1,5 @@
 -- Créez un utilisateur et attribuez-lui des privilèges pour la base de données fil_rouge_401_Corneille_Jules
-CREATE USER IF NOT EXISTS 'Fil_Rouge_Jules_Conrneille'@'localhost' IDENTIFIED BY 'jesaispasquoimettreenmotdepasse';
+CREATE USER IF NOT EXISTS 'Fil_Rouge_Jules_Conrneille'@'localhost' IDENTIFIED BY '1234';
 
 DROP DATABASE IF EXISTS fil_rouge_401_Corneille_Jules;
 CREATE DATABASE IF NOT EXISTS fil_rouge_401_Corneille_Jules;
