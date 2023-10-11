@@ -34,6 +34,15 @@ if ($connexion->query($create_database_query) === true) {
 // Sélectionnez la base de données nouvellement créée
 $connexion->select_db($base_de_donnees);
 
+
+
+
+#################################################################################################################################################
+
+// creation des tables
+
+#################################################################################################################################################
+
 // Créer la table ApiConstructeur si elle n'existe pas
 $create_table_constructeur_query = "CREATE TABLE IF NOT EXISTS ApiConstructeur (
     id INT PRIMARY KEY,
@@ -43,26 +52,62 @@ $create_table_constructeur_query = "CREATE TABLE IF NOT EXISTS ApiConstructeur (
     pays VARCHAR(255)
 )";
 if ($connexion->query($create_table_constructeur_query) === true) {
-    echo "Table ApiConstructeur créée ou existe déjà.<br>";
+    echo "Table ApiConstructeur créée.<br>";
 } else {
     echo "Erreur lors de la création de la table ApiConstructeur : " . $connexion->error . "<br>";
 }
 
-// Créer la table ApiVoitures si elle n'existe pas
-$create_table_voitures_query = "CREATE TABLE IF NOT EXISTS ApiVoitures (
-    id INT PRIMARY KEY,
-    nom VARCHAR(255),
-    description TEXT,
-    id_constructeur INT,
-    production VARCHAR(10),
-    image VARCHAR(500)  /* Utilisation du type de données VARCHAR(500) pour la colonne 'image' */
+// Créer la table UsinesConstructeur si elle n'existe pas
+$create_table_usinesconstructeur_query = "CREATE TABLE IF NOT EXISTS UsinesConstructeur (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usines VARCHAR(255) NOT NULL
 )";
-
-if ($connexion->query($create_table_voitures_query) === true) {
-    echo "Table ApiVoitures créée ou existe déjà.<br>";
+if ($connexion->query($create_table_usinesconstructeur_query) === true) {
+    echo "Table usine Constructeur créée.<br>";
 } else {
-    echo "Erreur lors de la création de la table ApiVoitures : " . $connexion->error . "<br>";
+    echo "Erreur lors de la création de la table usine Constructeur : " . $connexion->error . "<br>";
 }
+
+// Créer la table LinkUsines si elle n'existe pas
+$create_table_linkusines_query = "CREATE TABLE IF NOT EXISTS LinkUsines (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_constructeurs INT NOT NULL,
+    idusines INT NOT NULL,
+    FOREIGN KEY (id_constructeurs) REFERENCES ApiConstructeur(id),
+    FOREIGN KEY (idusines) REFERENCES UsinesConstructeur(id)
+)";
+if ($connexion->query($create_table_linkusines_query) === true) {
+    echo "Table LinkUsines créée.<br>";
+} else {
+    echo "Erreur lors de la création de la table LinkUsines : " . $connexion->error . "<br>";
+}
+
+
+// Créer la table ApiVoitures si elle n'existe pas
+$create_table_apivoiture_query = "CREATE TABLE IF NOT EXISTS ApiVoitures (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    constructeur INT NOT NULL,
+    production INT NOT NULL,
+    image VARCHAR(500) NOT NULL,
+    FOREIGN KEY (constructeur) REFERENCES ApiConstructeur(id)
+)";
+if ($connexion->query($create_table_apivoiture_query) === true) {
+    echo "Table ApiVoitures créée.<br>";
+} else {
+    echo "Erreur lors de la création de la table ApiVoitures :  " . $connexion->error . "<br>";
+}
+
+
+
+
+#################################################################################################################################################
+
+// Insertion des données dans les tables
+
+#################################################################################################################################################
+
 
 // Exemple d'API à partir de JSONPlaceholder
 $api_constructeur = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
@@ -106,7 +151,7 @@ if ($constructeur !== false && $voitures !== false) {
         $id = $connexion->real_escape_string($entry['id']);
         $nom = $connexion->real_escape_string($entry['nom']);
         $description = $connexion->real_escape_string($entry['description']);
-        $id_constructeur = $connexion->real_escape_string($entry['constructeur']);
+        $constructeur = $connexion->real_escape_string($entry['constructeur']);
         $production = $connexion->real_escape_string($entry['production']);
         $image = $connexion->real_escape_string($entry['image']);
 
@@ -115,7 +160,7 @@ if ($constructeur !== false && $voitures !== false) {
         $existing_result = $connexion->query($existing_query);
 
         if ($existing_result->num_rows == 0) {
-            $sql = "INSERT INTO ApiVoitures (id, nom, description, id_constructeur, production, image) VALUES ('$id', '$nom', '$description', '$id_constructeur', '$production', '$image')";
+            $sql = "INSERT INTO ApiVoitures (id, nom, description, constructeur, production, image) VALUES ('$id', '$nom', '$description', '$constructeur', '$production', '$image')";
 
             if ($connexion->query($sql) === true) {
                 echo "Données voitures insérées avec succès dans la base de données.<br>";
