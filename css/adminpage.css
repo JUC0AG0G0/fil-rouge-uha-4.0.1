@@ -8,7 +8,8 @@ body{
     margin: 0px;
     padding: 0px;
     font-family: Arial, Helvetica, sans-serif;
-
+    background-color: gray;
+    color: #fff;
     
 }
 
@@ -88,16 +89,33 @@ button {
 }
 
 
-.formulaire{
+.choisi{
+    
     position: absolute;
     top: 15%;
     bottom: 0px;
     left: 0px;
     right: 0px;
 
-    /* background-color: yellow; */
-
 }
+
+.choisiaff{
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.imgch{
+    padding-top: 5%;
+    text-align: center;
+}
+
+.logo_admin{
+    display: inline-block;
+    width: auto;
+}
+
 
 
 .worldmap{
