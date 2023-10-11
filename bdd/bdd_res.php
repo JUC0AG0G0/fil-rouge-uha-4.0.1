@@ -104,7 +104,7 @@ if ($connexion->query($create_table_apivoiture_query) === true) {
 
 #################################################################################################################################################
 
-// Insertion des données dans les tables
+// Recuperation des données des api
 
 #################################################################################################################################################
 
@@ -121,7 +121,12 @@ if ($constructeur !== false && $voitures !== false) {
     $data_constructeur = json_decode($constructeur, true);
     $data_voitures = json_decode($voitures, true);
 
-    // Première boucle pour insérer des données de constructeur
+#################################################################################################################################################
+
+// Ajout des informations dans la table constructeur
+
+#################################################################################################################################################
+
     foreach ($data_constructeur as $entry) {
         $id = $connexion->real_escape_string($entry['id']);
         $nom = $connexion->real_escape_string($entry['nom']);
@@ -146,7 +151,23 @@ if ($constructeur !== false && $voitures !== false) {
         }
     }
 
-    // Deuxième boucle pour insérer des données de voiture
+
+#################################################################################################################################################
+
+// Remplissage des info des usines
+
+#################################################################################################################################################    
+
+
+
+
+
+#################################################################################################################################################
+
+// Ajout des informations dans la table voiture
+
+#################################################################################################################################################
+
     foreach ($data_voitures as $entry) {
         $id = $connexion->real_escape_string($entry['id']);
         $nom = $connexion->real_escape_string($entry['nom']);
