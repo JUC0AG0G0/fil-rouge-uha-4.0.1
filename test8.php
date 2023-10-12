@@ -3,6 +3,8 @@
     
     $bdd = new PDO('mysql:host=localhost;dbname=fil_rouge_401_Corneille_Jules','Fil_Rouge_Jules_Conrneille','1234');  
 
+
+
     $pdoStat = $bdd->prepare('SELECT * FROM ApiVoitures ORDER BY nom ASC');
 
     $excuteIsOk = $pdoStat->execute();
@@ -10,11 +12,21 @@
     $voitures = $pdoStat->fetchAll();
 
 
+
     $constructeur = $bdd->prepare('SELECT * FROM ApiConstructeur ORDER BY nom ASC');
 
     $excuteIsOk = $constructeur->execute();
 
     $constructeur = $constructeur->fetchAll();
+
+
+
+    $linkusines = $bdd->prepare('SELECT * FROM LinkUsines ORDER BY id_constructeurs ASC');
+
+    $excuteIsOk = $linkusines->execute();
+
+    $linkusines = $linkusines->fetchAll();
+
 
 ?>
 
@@ -57,17 +69,23 @@
 <h1>Liste des construteur</h1>
 
 <ul>
-
-
     <?php foreach($constructeur as $constructeur): ?>
         <li>
-
-            <?= $constructeur['id'] ?> <?= $constructeur['nom'] ?> <?= $constructeur['creation'] ?> <?= $constructeur['fondateur'] ?> <?= $constructeur['pays'] ?> <img src="./img/drapeau_svg/<?= $constructeur['pays'] ?>.svg" style="heigth : 150px; width : 50px;" >
+            <?= $constructeur['id'] ?> <?= $constructeur['nom'] ?> <?= $constructeur['creation'] ?> <?= $constructeur['fondateur'] ?> <?= $constructeur['pays'] ?> <br>
+            Usines:
+            <?php
+            $usinesQuery = $bdd->prepare('SELECT u.usines FROM UsinesConstructeur u
+                INNER JOIN LinkUsines lu ON u.id = lu.idusines
+                WHERE lu.id_constructeurs = ?');
+            $usinesQuery->execute([$constructeur['id']]);
+            $usines = $usinesQuery->fetchAll(PDO::FETCH_COLUMN);
+            echo implode(', ', $usines);
+            ?>
+            <img src="./img/drapeau_svg/<?= $constructeur['pays'] ?>.svg" style=" width: 50px;">
+            <br><br><br><br>
 
         </li>
-    
     <?php endforeach ?>
-
 </ul>
 
     
