@@ -158,9 +158,47 @@ if ($constructeur !== false && $voitures !== false) {
 
 #################################################################################################################################################    
 
+    foreach ($data_constructeur as $entry) {
+        $id_constructeur = $connexion->real_escape_string($entry['id']);
+        $usines = $entry['usines'];
 
+        foreach ($usines as $usine) {
+            $usine = $connexion->real_escape_string($usine);
 
+            $existing_usine_query = "SELECT id FROM UsinesConstructeur WHERE usines = '$usine'";
+            $existing_usine_result = $connexion->query($existing_usine_query);
 
+            if ($existing_usine_result->num_rows == 0) {
+                $insert_usine_query = "INSERT INTO UsinesConstructeur (usines) VALUES ('$usine')";
+                if ($connexion->query($insert_usine_query) === true) {
+                    echo "Usine '$usine' ajoutée à la table UsinesConstructeur.<br>";
+
+                    $id_usine = $connexion->insert_id;
+
+                    $insert_link_query = "INSERT INTO LinkUsines (id_constructeurs, idusines) VALUES ('$id_constructeur', '$id_usine')";
+                    if ($connexion->query($insert_link_query) === true) {
+                        echo "Lien entre le constructeur ID '$id_constructeur' et l'usine ID '$id_usine' ajouté à la table LinkUsines.<br>";
+                    } else {
+                        echo "Erreur lors de l'ajout du lien dans la table LinkUsines : " . $connexion->error . "<br>";
+                    }
+                } else {
+                    echo "Erreur lors de l'ajout de l'usine dans la table UsinesConstructeur : " . $connexion->error . "<br>";
+                }
+            } else {
+                $row = $existing_usine_result->fetch_assoc();
+                $id_usine = $row['id'];
+
+                $insert_link_query = "INSERT INTO LinkUsines (id_constructeurs, idusines) VALUES ('$id_constructeur', '$id_usine')";
+                if ($connexion->query($insert_link_query) === true) {
+                    echo "Lien entre le constructeur ID '$id_constructeur' et l'usine ID '$id_usine' ajouté à la table LinkUsines.<br>";
+                } else {
+                    echo "Erreur lors de l'ajout du lien dans la table LinkUsines : " . $connexion->error . "<br>";
+                }
+            }
+        }
+    }
+
+    
 
 #################################################################################################################################################
 

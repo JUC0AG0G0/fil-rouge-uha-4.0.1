@@ -107,13 +107,13 @@ button {
 }
 
 .imgch{
-    padding-top: 5%;
+    padding-top: 10%;
     text-align: center;
 }
 
 .logo_admin{
     display: inline-block;
-    width: auto;
+    width: 20%;
 }
 
 
@@ -154,7 +154,7 @@ button {
     border-radius: 50%;
     outline: 4px solid white;
     z-index: 20;
-    box-shadow: rgba(255, 255, 255, 0.4) 0px 0px 60px;
+    box-shadow: rgba(255, 255, 255, 0.4) 0px 0px 50px;
     backdrop-filter: blur(1px);
 
 }
