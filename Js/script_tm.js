@@ -4,7 +4,7 @@
 
 async function getVoitures() {
     try {
-        const response = await fetch('https://filrouge.uha4point0.fr/V2/car/voitures');
+        const response = await fetch('./bdd/apivoiturebdd.php');
         const data = await response.json();
         return data;
     } catch (error) {
