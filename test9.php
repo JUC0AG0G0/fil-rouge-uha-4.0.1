@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 9</title>
+    <link rel="icon" type="image/png" href="./img/monkey_narotu.png">
+    <link rel="stylesheet" type="text/css" href="./css/template_marque.css">
+    <script src="./Js/test9.js"></script>
+</head>
+<body>
+    <div class="bc">
+        <video class="bc" autoplay loop muted>
+            <?php
+                $numid = $_GET['id'];
+
+                $serveur = 'localhost';
+                $base_de_donnees = 'fil_rouge_401_Corneille_Jules';
+                $utilisateur = 'Fil_Rouge_Jules_Conrneille';
+                $mot_de_passe = '1234';
+
+                try {
+                    $bdd = new PDO("mysql:host=$serveur;dbname=$base_de_donnees;charset=utf8", $utilisateur, $mot_de_passe);
+
+                    $constructeurQuery = $bdd->prepare('SELECT * FROM ApiConstructeur WHERE id = ?');
+                    $constructeurQuery->execute([$numid]);
+                    $constructeurData = $constructeurQuery->fetch();
+
+                    if ($constructeurData) {
+                        $videoSource = './video/marques/' . htmlspecialchars($constructeurData['nom'], ENT_QUOTES, 'UTF-8') . '.mp4';
+                        echo '<source src="' . htmlspecialchars($videoSource, ENT_QUOTES, 'UTF-8') . '" type="video/mp4">';
+                    }
+                } catch (PDOException $e) {
+                    echo 'Erreur : ' . $e->getMessage();
+                }
+            ?>
+        </video>
+    </div>
+
+    <div class="select">
+        <div class="boite">
+            <div class="case">
+                <a href="#" class="div-link" data-target="div1">
+                    <?php
+                        if ($constructeurData) {
+                            $logoPath = './img/logo_marque/' . htmlspecialchars($constructeurData['nom'], ENT_QUOTES, 'UTF-8') . '.svg';
+                            echo '<img src="' . htmlspecialchars($logoPath, ENT_QUOTES, 'UTF-8') . '" class="imgcase" style="filter: brightness(0) invert(1) grayscale(100%) sepia(0%) saturate(0%);">';
+                        }
+                    ?>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="info">
+        <div class="logopays">
+            <div class="logodescri">
+                <?php
+                    if ($constructeurData) {
+                        $logoPath = './img/logo_marque/' . htmlspecialchars($constructeurData['nom'], ENT_QUOTES, 'UTF-8') . '.svg';
+                        echo '<img src="' . htmlspecialchars($logoPath, ENT_QUOTES, 'UTF-8') . '" class="logodescription">';
+                    }
+                ?>
+            </div>
+            <div class="Pays">
+                <?php
+                    if ($constructeurData) {
+                        $pays = $constructeurData['pays'];
+                        $flagPath = './img/drapeau_svg/' . $pays . '.svg';
+                        echo '<img src="' . htmlspecialchars($flagPath, ENT_QUOTES, 'UTF-8') . '" class="paysorigine">';
+                        echo '<p class="nompays">' . htmlspecialchars($pays, ENT_QUOTES, 'UTF-8') . '</p>';
+                    }
+                ?>
+            </div>
+            <hr class="ligne">
+        </div>
+        <div>
+            <div class="div-container" id="div1">
+                <?php
+                    if ($constructeurData) {
+                        echo '<div><span> Marque : </span><span>' . htmlspecialchars($constructeurData['nom'], ENT_QUOTES, 'UTF-8') . '</span></div><br>';
+                        echo '<div><span> Creation : </span><span>' . htmlspecialchars($constructeurData['creation'], ENT_QUOTES, 'UTF-8') . '</span></div><br>';
+                        echo '<div><span> Fondateur : </span><span>' . htmlspecialchars($constructeurData['fondateur'], ENT_QUOTES, 'UTF-8') . '</span></div><br>';
+                        
+                        $usinesQuery = $bdd->prepare('SELECT u.usines FROM UsinesConstructeur u
+                            INNER JOIN LinkUsines lu ON u.id = lu.idusines
+                            WHERE lu.id_constructeurs = ?');
+                        $usinesQuery->execute([$numid]);
+                        $usines = $usinesQuery->fetchAll(PDO::FETCH_COLUMN);
+                        
+                        if (!empty($usines)) {
+                            echo '<div><span> Usines : </span>';
+                            echo implode(', ', array_map(function($usine) {
+                                return htmlspecialchars($usine, ENT_QUOTES, 'UTF-8');
+                            }, $usines));
+                            echo '</div><br>';
+                        }
+                    }
+                ?>
+            </div>
+        </div>
+    </div>
+
+    <a href="./test10.php">
+        <div class="buttonback">
+            <img src="./img/97591.svg" class="imgback" style="height: 80%; width: 80%;">
+        </div>
+    </a>
+</body>
+</html>
+

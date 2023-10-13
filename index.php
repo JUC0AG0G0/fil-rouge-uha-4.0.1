@@ -12,17 +12,31 @@
         <div class="selection">
             <div class="continent">
                 <div class="mmm">
-                    <a href="./constructeur.php" class="bc"><h1>AMERICA</h1></a>
+                    <a href="./test10.php" class="bc"><h1>AMERICA</h1></a>
                 </div>
             </div>
             <div class="continent">
                 <div class="mmm">
-                    <a href="./constructeur.php" class="bc"><h1>EUROPE</h1></a>
+                    <a href="./test10.php" class="bc"><h1>EUROPE</h1></a>
                 </div>
             </div>
             <div class="continent">
                 <div class="mmm">
-                    <a href="./constructeur.php" class="bc"><h1>ASIA-PACIFIC</h1></a>
+                    <a href="./test10.php" class="bc"><h1>ASIA-PACIFIC</h1></a>
+                </div>
+            </div>
+        </div>
+        <div class="linkr">
+            <div class="btn">
+                <div class="appuie" >
+                    <a href="https://git.uha4point0.fr/UHA40/fil-rouge-2023/4.0.1/4.0.1-fil-rouge-corneille-jules"  >
+                        <img src="./img/img_admin/git.png" class="imgadmin">
+                    </a>
+                </div>
+                <div class="appuie" >
+                    <a href="./adminpage.php" >
+                        <img src="./img/img_admin/ajouter-une-base-de-donnees.png" class="imgadmin" >
+                    </a>
                 </div>
             </div>
         </div>

@@ -58,10 +58,68 @@
         </div>
         <div class="choisi">
             <div class="choisiaff" id="addc" >
+                <div class="formulaire" >
+                    <form method="addconstructeur" action="">
 
+                        <h2>Nom :</h2>
+                        <input type="text" name="nom" />
+
+                        <h2>Année de creation :</h2>
+                        <input type="number" name="creation" min="1000" max="9999" />
+
+                        <h2>Fondateur :</h2>
+                        <input type="text" name="fondateur" />
+
+                        <h2>Pays d'origine :</h2>
+                        <select name="cars">
+                            <option value="Allemagne">Allemagne</option>
+                            <option value="Angleterre">Angleterre</option>
+                            <option value="france">France</option>
+                            <option value="Italie">Italie</option>
+                        </select>
+
+                        <h2>Usines :</h2>
+                        <input type="text" name="usines" />
+
+                        <h2>Logo :</h2>
+                        <input type="file" name="logo" accept=".svg" />
+
+                        <h2>Video :</h2>
+                        <input type="file" name="video" accept=".mp4" />
+
+                        <input type="submit" value="Ajouter"/>
+
+                    </form>
+                </div>
             </div>
             <div class="choisiaff" id="addv" >
+                <div class="formulaire" >
+                    <form method="addvoiture" action="">
 
+                        <h2>Nom :</h2>
+                        <input type="text" name="nom" />
+
+                        <h2>Année de production :</h2>
+                        <input type="text" name="description" />
+
+                        <h2>constructeur :</h2>
+                        <select name="constructeur" >
+                            <option value="BMW">BMW</option>
+                            <option value="Fiat">Fiat</option>
+                            <option value="Honda">Honda</option>
+                            <option value="Renault">Renault</option>
+                        </select>
+
+                        <h2>Nombre de modele produit :</h2>
+                        <input type="number" name="production" min="1" />
+
+                        <h2>Image :</h2>
+                        <input type="url" name="image"  />
+
+                        <input type="submit" value="Ajouter"/>
+
+                    </form>
+                </div>
             </div>
             <div class="choisiaff" id=" supprc" >
 
