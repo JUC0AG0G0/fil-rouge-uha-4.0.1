@@ -141,14 +141,14 @@ $voitures = $voitureQuery->fetchAll();
             <div class="choisiaff" id="supprc" >
                 <div class="formulaire" >
                     <form method="supprimer_constructeur" action="">
-                        <h2>constructeur a supprimer :</h2>
-                        <select name="suppr_constructeur" >
-                            <?php foreach ($constructeurs as $constructeur) : ?>
-                                <option value="<?php echo $constructeur['id']; ?>"><?php echo $constructeur['nom']; ?></option>
+                    <h2>Voiture à supprimer :</h2>
+                        <select id="suppr_voiture" name="suppr_voiture">
+                            <?php foreach ($constructeurs as $constructeurs) : ?>
+                                <option value="<?php echo $constructeurs['id']; ?>" data-name="<?php echo $constructeurs['nom']; ?>"><?php echo $constructeurs['nom']; ?></option>
                             <?php endforeach; ?>
                         </select>
 
-                        <input type="submit" value="Ajouter"/>
+                        <input type="submit" name="supprimer" value="Supprimer"/>
                     </form>
                 </div>
             </div>
