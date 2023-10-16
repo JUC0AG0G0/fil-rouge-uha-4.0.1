@@ -37,7 +37,7 @@
                 echo '<div class="marques">';
             }
 
-            echo '<a href="./test9.php?id=' . $constructeur['id'] . '"><div class="boutondiv">';
+            echo '<a href="./template_marque.php?id=' . $constructeur['id'] . '"><div class="boutondiv">';
             echo '<img src="./img/logo_marque/' . htmlspecialchars($constructeur['nom'], ENT_QUOTES, 'UTF-8') . '.svg" class="logoimg">';
             echo '</div></a>';
         }
