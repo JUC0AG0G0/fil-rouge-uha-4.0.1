@@ -1,3 +1,21 @@
+<?php
+// Connexion à la base de données
+$bdd = new PDO('mysql:host=localhost;dbname=fil_rouge_401_Corneille_Jules', 'Fil_Rouge_Jules_Conrneille', '1234');
+
+// Récupération de la liste des constructeurs
+$constructeurQuery = $bdd->prepare('SELECT id, nom FROM ApiConstructeur ORDER BY nom ASC');
+$constructeurQuery->execute();
+$constructeurs = $constructeurQuery->fetchAll();
+
+$voitureQuery = $bdd->prepare('SELECT id, nom FROM ApiVoitures ORDER BY nom ASC');
+$voitureQuery->execute();
+$voitures = $voitureQuery->fetchAll();
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -104,10 +122,9 @@
 
                         <h2>constructeur :</h2>
                         <select name="constructeur" >
-                            <option value="BMW">BMW</option>
-                            <option value="Fiat">Fiat</option>
-                            <option value="Honda">Honda</option>
-                            <option value="Renault">Renault</option>
+                            <?php foreach ($constructeurs as $constructeur) : ?>
+                                <option value="<?php echo $constructeur['id']; ?>"><?php echo $constructeur['nom']; ?></option>
+                            <?php endforeach; ?>
                         </select>
 
                         <h2>Nombre de modele produit :</h2>
@@ -121,11 +138,34 @@
                     </form>
                 </div>
             </div>
-            <div class="choisiaff" id=" supprc" >
+            <div class="choisiaff" id="supprc" >
+                <div class="formulaire" >
+                    <form method="supprimer_constructeur" action="">
+                        <h2>constructeur a supprimer :</h2>
+                        <select name="suppr_constructeur" >
+                            <?php foreach ($constructeurs as $constructeur) : ?>
+                                <option value="<?php echo $constructeur['id']; ?>"><?php echo $constructeur['nom']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
 
+                        <input type="submit" value="Ajouter"/>
+                    </form>
+                </div>
             </div>
             <div class="choisiaff" id="supprv">
+                <div class="formulaire">
+                    <form method="post" action="">
 
+                        <h2>Voiture à supprimer :</h2>
+                        <select id="suppr_voiture" name="suppr_voiture">
+                            <?php foreach ($voitures as $voiture) : ?>
+                                <option value="<?php echo $voiture['id']; ?>" data-name="<?php echo $voiture['nom']; ?>"><?php echo $voiture['nom']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <input type="submit" name="supprimer" value="Supprimer"/>
+                    </form>
+                </div>
             </div>
             <div class="choisiaff" id="supprimer_bdd">
                 <div class="imgch"  >
@@ -144,8 +184,6 @@
                 </div>
             </div>
         </div>
-            
-
-</div>
+    </div>
 </body>
 </html>
