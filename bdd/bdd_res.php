@@ -43,6 +43,14 @@ $connexion->select_db($base_de_donnees);
 
 #################################################################################################################################################
 
+
+#################################################################################################################################################
+
+// Ajout des informations dans la table constructeur
+
+#################################################################################################################################################
+
+
 // Créer la table ApiConstructeur si elle n'existe pas
 $create_table_constructeur_query = "CREATE TABLE IF NOT EXISTS ApiConstructeur (
     id INT PRIMARY KEY,
@@ -57,6 +65,14 @@ if ($connexion->query($create_table_constructeur_query) === true) {
     echo "Erreur lors de la création de la table ApiConstructeur : " . $connexion->error . "<br>";
 }
 
+
+#################################################################################################################################################
+
+// Ajout des informations dans la table constructeur
+
+#################################################################################################################################################
+
+
 // Créer la table UsinesConstructeur si elle n'existe pas
 $create_table_usinesconstructeur_query = "CREATE TABLE IF NOT EXISTS UsinesConstructeur (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -67,6 +83,49 @@ if ($connexion->query($create_table_usinesconstructeur_query) === true) {
 } else {
     echo "Erreur lors de la création de la table usine Constructeur : " . $connexion->error . "<br>";
 }
+
+
+
+#################################################################################################################################################
+
+// Ajout des informations dans la table constructeur
+
+#################################################################################################################################################
+
+// Créer la table ApiContinent si elle n'existe pas
+$create_table_ApiContinent_query = "CREATE TABLE IF NOT EXISTS ApiContinent (
+    nom_pays VARCHAR(255) NOT NULL,
+    drapeaupays VARCHAR(255) NOT NULL,
+    arabworld BOOLEAN NOT NULL,
+    centraleuropeandthebaltics BOOLEAN NOT NULL,
+    eastasiapacific BOOLEAN NOT NULL,
+    euroarea BOOLEAN NOT NULL,
+    europecentralasia BOOLEAN NOT NULL,
+    europeanunion BOOLEAN NOT NULL,
+    highincome BOOLEAN NOT NULL,
+    latinamericacaribbean BOOLEAN NOT NULL,
+    owincome BOOLEAN NOT NULL,
+    lowermiddleincome BOOLEAN NOT NULL,
+    middleeastnorthafrica BOOLEAN NOT NULL,
+    northamerica BOOLEAN NOT NULL,
+    oecdmembers BOOLEAN NOT NULL,
+    subsaharanafrica BOOLEAN NOT NULL,
+    uppermiddleincome BOOLEAN NOT NULL
+)";
+if ($connexion->query($create_table_ApiContinent_query) === true) {
+    echo "Table ApiContinent créée.<br>";
+} else {
+    echo "Erreur lors de la création de la table ApiContinent : " . $connexion->error . "<br>";
+}
+
+
+
+#################################################################################################################################################
+
+// Ajout des informations dans la table constructeur
+
+#################################################################################################################################################
+
 
 // Créer la table LinkUsines si elle n'existe pas
 $create_table_linkusines_query = "CREATE TABLE IF NOT EXISTS LinkUsines (
@@ -82,6 +141,13 @@ if ($connexion->query($create_table_linkusines_query) === true) {
     echo "Erreur lors de la création de la table LinkUsines : " . $connexion->error . "<br>";
 }
 
+
+
+#################################################################################################################################################
+
+// Ajout des informations dans la table constructeur
+
+#################################################################################################################################################
 
 // Créer la table ApiVoitures si elle n'existe pas
 $create_table_apivoiture_query = "CREATE TABLE IF NOT EXISTS ApiVoitures (
@@ -112,14 +178,18 @@ if ($connexion->query($create_table_apivoiture_query) === true) {
 // Exemple d'API à partir de JSONPlaceholder
 $api_constructeur = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
 $api_voitures = 'https://filrouge.uha4point0.fr/V2/car/voitures';
+$apipayscontinent = 'https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/curiexplore-pays/records?limit=-1';
 
 // Récupérez les données de l'API
 $constructeur = file_get_contents($api_constructeur);
 $voitures = file_get_contents($api_voitures);
+$continentpays = file_get_contents($apipayscontinent);
 
-if ($constructeur !== false && $voitures !== false) {
+if ($constructeur !== false && $voitures !== false && $continentpays !== false) {
     $data_constructeur = json_decode($constructeur, true);
     $data_voitures = json_decode($voitures, true);
+    $data_continentpays = json_decode($continentpays, true);
+    
 
 #################################################################################################################################################
 
@@ -151,6 +221,68 @@ if ($constructeur !== false && $voitures !== false) {
         }
     }
 
+
+#################################################################################################################################################
+
+// Ajout des informations dans la table constructeur
+
+#################################################################################################################################################
+
+    foreach ($data_continentpays['results'] as $entry) {
+        $nom_pays = $connexion->real_escape_string($entry['name_fr']);
+        $drapeaupays = $connexion->real_escape_string($entry['flag']);
+        $arabworld = $entry['arab_world'];
+        $centraleuropeandthebaltics = $entry['central_europe_and_the_baltics'];
+        $eastasiapacific = $entry['east_asia_pacific'];
+        $euroarea = $entry['euro_area'];
+        $europecentralasia = $entry['europe_central_asia'];
+        $europeanunion = $entry['european_union'];
+        $highincome = $entry['high_income'];
+        $latinamericacaribbean = $entry['latin_america_caribbean'];
+        $owincome = $entry['low_income'];
+        $lowermiddleincome = $entry['lower_middle_income'];
+        $middleeastnorthafrica = $entry['middle_east_north_africa'];
+        $northamerica = $entry['north_america'];
+        $oecdmembers = $entry['oecd_members'];
+        $subsaharanafrica = $entry['sub_saharan_africa'];
+        $uppermiddleincome = $entry['upper_middle_income'];
+
+        $sql = "INSERT INTO ApiContinent (nom_pays, drapeaupays, arabworld, centraleuropeandthebaltics, eastasiapacific, euroarea, europecentralasia, europeanunion, highincome, latinamericacaribbean, owincome, lowermiddleincome, middleeastnorthafrica, northamerica, oecdmembers, subsaharanafrica, uppermiddleincome) 
+                VALUES ('$nom_pays', '$drapeaupays', $arabworld, $centraleuropeandthebaltics, $eastasiapacific, $euroarea, $europecentralasia, $europeanunion, $highincome, $latinamericacaribbean, $owincome, $lowermiddleincome, $middleeastnorthafrica, $northamerica, $oecdmembers, $subsaharanafrica, $uppermiddleincome)";
+
+        if ($connexion->query($sql) === true) {
+            echo "Données continent insérées avec succès dans la base de données.<br>";
+        } else {
+            echo "Erreur lors de l'insertion des données : " . $connexion->error . "<br>";
+        }
+    }
+
+
+
+    // foreach ($data_continentpays as $entry) {
+    //     $id = $connexion->real_escape_string($entry['id']);
+    //     $nom = $connexion->real_escape_string($entry['nom']);
+    //     $creation = $connexion->real_escape_string($entry['creation']);
+    //     $fondateur = $connexion->real_escape_string($entry['fondateur']);
+    //     $pays = $connexion->real_escape_string($entry['pays']);
+
+    //     // Vérifiez si l'ID existe déjà dans la table ApiConstructeur
+    //     $existing_query = "SELECT id FROM ApiConstructeur WHERE id = '$id'";
+    //     $existing_result = $connexion->query($existing_query);
+
+    //     if ($existing_result->num_rows == 0) {
+    //         $sql = "INSERT INTO ApiConstructeur (id, nom, creation, fondateur, pays) VALUES ('$id', '$nom', '$creation', '$fondateur', '$pays')";
+
+    //         if ($connexion->query($sql) === true) {
+    //             echo "Données constructeur insérées avec succès dans la base de données.<br>";
+    //         } else {
+    //             echo "Erreur lors de l'insertion des données : " . $connexion->error . "<br>";
+    //         }
+    //     } else {
+    //         echo "L'entrée avec l'ID $id existe déjà dans la table ApiConstructeur.<br>";
+    //     }
+    // }
+    
 
 #################################################################################################################################################
 
