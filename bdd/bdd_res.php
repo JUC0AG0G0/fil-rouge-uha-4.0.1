@@ -46,7 +46,7 @@ $connexion->select_db($base_de_donnees);
 
 #################################################################################################################################################
 
-// Ajout des informations dans la table constructeur
+// Création de la table ApiConstructeur
 
 #################################################################################################################################################
 
@@ -55,7 +55,7 @@ $connexion->select_db($base_de_donnees);
 $create_table_constructeur_query = "CREATE TABLE IF NOT EXISTS ApiConstructeur (
     id INT PRIMARY KEY,
     nom VARCHAR(255),
-    creation VARCHAR(4),   /* Utilisation du type de données VARCHAR(4) pour la colonne 'creation' */
+    creation VARCHAR(4),
     fondateur VARCHAR(255),
     pays VARCHAR(255)
 )";
@@ -68,7 +68,7 @@ if ($connexion->query($create_table_constructeur_query) === true) {
 
 #################################################################################################################################################
 
-// Ajout des informations dans la table constructeur
+// Création de la table UsinesConstructeur
 
 #################################################################################################################################################
 
@@ -88,13 +88,13 @@ if ($connexion->query($create_table_usinesconstructeur_query) === true) {
 
 #################################################################################################################################################
 
-// Ajout des informations dans la table constructeur
+// Création de la table ApiContinent
 
 #################################################################################################################################################
 
 // Créer la table ApiContinent si elle n'existe pas
 $create_table_ApiContinent_query = "CREATE TABLE IF NOT EXISTS ApiContinent (
-    nom_pays VARCHAR(255) NOT NULL,
+    nom_pays VARCHAR(255) NOT NULL PRIMARY KEY,   -- Utilisation de nom_pays comme clé primaire
     drapeaupays VARCHAR(255) NOT NULL,
     arabworld BOOLEAN NOT NULL,
     centraleuropeandthebaltics BOOLEAN NOT NULL,
@@ -119,17 +119,15 @@ if ($connexion->query($create_table_ApiContinent_query) === true) {
 }
 
 
-
 #################################################################################################################################################
 
-// Ajout des informations dans la table constructeur
+// Création de la table LinkUsines
 
 #################################################################################################################################################
 
 
 // Créer la table LinkUsines si elle n'existe pas
 $create_table_linkusines_query = "CREATE TABLE IF NOT EXISTS LinkUsines (
-    id INT AUTO_INCREMENT PRIMARY KEY,
     id_constructeurs INT NOT NULL,
     idusines INT NOT NULL,
     FOREIGN KEY (id_constructeurs) REFERENCES ApiConstructeur(id),
@@ -143,9 +141,10 @@ if ($connexion->query($create_table_linkusines_query) === true) {
 
 
 
+
 #################################################################################################################################################
 
-// Ajout des informations dans la table constructeur
+// Création de la table ApiVoitures
 
 #################################################################################################################################################
 
@@ -259,31 +258,6 @@ if ($constructeur !== false && $voitures !== false && $continentpays !== false) 
 
 
 
-    // foreach ($data_continentpays as $entry) {
-    //     $id = $connexion->real_escape_string($entry['id']);
-    //     $nom = $connexion->real_escape_string($entry['nom']);
-    //     $creation = $connexion->real_escape_string($entry['creation']);
-    //     $fondateur = $connexion->real_escape_string($entry['fondateur']);
-    //     $pays = $connexion->real_escape_string($entry['pays']);
-
-    //     // Vérifiez si l'ID existe déjà dans la table ApiConstructeur
-    //     $existing_query = "SELECT id FROM ApiConstructeur WHERE id = '$id'";
-    //     $existing_result = $connexion->query($existing_query);
-
-    //     if ($existing_result->num_rows == 0) {
-    //         $sql = "INSERT INTO ApiConstructeur (id, nom, creation, fondateur, pays) VALUES ('$id', '$nom', '$creation', '$fondateur', '$pays')";
-
-    //         if ($connexion->query($sql) === true) {
-    //             echo "Données constructeur insérées avec succès dans la base de données.<br>";
-    //         } else {
-    //             echo "Erreur lors de l'insertion des données : " . $connexion->error . "<br>";
-    //         }
-    //     } else {
-    //         echo "L'entrée avec l'ID $id existe déjà dans la table ApiConstructeur.<br>";
-    //     }
-    // }
-    
-
 #################################################################################################################################################
 
 // Remplissage des info des usines
@@ -309,7 +283,7 @@ if ($constructeur !== false && $voitures !== false && $continentpays !== false) 
 
                     $insert_link_query = "INSERT INTO LinkUsines (id_constructeurs, idusines) VALUES ('$id_constructeur', '$id_usine')";
                     if ($connexion->query($insert_link_query) === true) {
-                        echo "Lien entre le constructeur ID '$id_constructeur' et l'usine ID '$id_usine' ajouté à la table LinkUsines.<br>";
+                        echo "Lien entre le constructeur ID '$id_constructeur' et l'usine ajouté à la table LinkUsines.<br>";
                     } else {
                         echo "Erreur lors de l'ajout du lien dans la table LinkUsines : " . $connexion->error . "<br>";
                     }
@@ -322,13 +296,14 @@ if ($constructeur !== false && $voitures !== false && $continentpays !== false) 
 
                 $insert_link_query = "INSERT INTO LinkUsines (id_constructeurs, idusines) VALUES ('$id_constructeur', '$id_usine')";
                 if ($connexion->query($insert_link_query) === true) {
-                    echo "Lien entre le constructeur ID '$id_constructeur' et l'usine ID '$id_usine' ajouté à la table LinkUsines.<br>";
+                    echo "Lien entre le constructeur ID '$id_constructeur' et l'usine ajouté à la table LinkUsines.<br>";
                 } else {
                     echo "Erreur lors de l'ajout du lien dans la table LinkUsines : " . $connexion->error . "<br>";
                 }
             }
         }
     }
+
 
     
 
