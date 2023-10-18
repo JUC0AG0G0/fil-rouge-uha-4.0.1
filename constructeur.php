@@ -24,6 +24,7 @@
         $constructeurQuery->execute();
         $constructeurs = $constructeurQuery->fetchAll();
 
+
         $currentCountry = "";
 
         foreach ($constructeurs as $constructeur) {
@@ -32,8 +33,14 @@
                     echo '</div><hr></div>';
                 }
                 $currentCountry = $constructeur['pays'];
+
+                // Recherche du lien du drapeau du pays dans la table ApiContinent
+                $drapeauQuery = $bdd->prepare('SELECT drapeaupays FROM ApiContinent WHERE nom_pays = ?');
+                $drapeauQuery->execute([$currentCountry]);
+                $drapeau = $drapeauQuery->fetch();
+
                 echo '<div class="partie">';
-                echo '<div class="pays"><img src="./img/drapeau_svg/' . htmlspecialchars($constructeur['pays'], ENT_QUOTES, 'UTF-8') . '.svg" class="imgpays"><h1 class="txtpays">' . $constructeur['pays'] . '</h1></div>';
+                echo '<div class="pays"><img src="' . htmlspecialchars($drapeau['drapeaupays'], ENT_QUOTES, 'UTF-8') . '" class="imgpays"><h1 class="txtpays">' . $constructeur['pays'] . '</h1></div>';
                 echo '<div class="marques">';
             }
 
