@@ -97,20 +97,14 @@ $create_table_ApiContinent_query = "CREATE TABLE IF NOT EXISTS ApiContinent (
     nom_pays VARCHAR(255) NOT NULL PRIMARY KEY,   -- Utilisation de nom_pays comme clé primaire
     drapeaupays VARCHAR(255) NOT NULL,
     arabworld BOOLEAN NOT NULL,
-    centraleuropeandthebaltics BOOLEAN NOT NULL,
-    eastasiapacific BOOLEAN NOT NULL,
-    euroarea BOOLEAN NOT NULL,
+    continentaleurope BOOLEAN NOT NULL,
+    asiaoceania BOOLEAN NOT NULL,
     europecentralasia BOOLEAN NOT NULL,
-    europeanunion BOOLEAN NOT NULL,
-    highincome BOOLEAN NOT NULL,
     latinamericacaribbean BOOLEAN NOT NULL,
-    owincome BOOLEAN NOT NULL,
-    lowermiddleincome BOOLEAN NOT NULL,
-    middleeastnorthafrica BOOLEAN NOT NULL,
     northamerica BOOLEAN NOT NULL,
-    oecdmembers BOOLEAN NOT NULL,
-    subsaharanafrica BOOLEAN NOT NULL,
-    uppermiddleincome BOOLEAN NOT NULL
+    subsaharanafrica BOOLEAN NOT NULL
+
+
 )";
 if ($connexion->query($create_table_ApiContinent_query) === true) {
     echo "Table ApiContinent créée.<br>";
@@ -231,23 +225,15 @@ if ($constructeur !== false && $voitures !== false && $continentpays !== false) 
         $nom_pays = $connexion->real_escape_string($entry['name_fr']);
         $drapeaupays = $connexion->real_escape_string($entry['flag']);
         $arabworld = $entry['arab_world'];
-        $centraleuropeandthebaltics = $entry['central_europe_and_the_baltics'];
-        $eastasiapacific = $entry['east_asia_pacific'];
-        $euroarea = $entry['euro_area'];
+        $continentaleurope = $entry['continental_europe'];
+        $asiaoceania = $entry['asia_oceania'];
         $europecentralasia = $entry['europe_central_asia'];
-        $europeanunion = $entry['european_union'];
-        $highincome = $entry['high_income'];
         $latinamericacaribbean = $entry['latin_america_caribbean'];
-        $owincome = $entry['low_income'];
-        $lowermiddleincome = $entry['lower_middle_income'];
-        $middleeastnorthafrica = $entry['middle_east_north_africa'];
         $northamerica = $entry['north_america'];
-        $oecdmembers = $entry['oecd_members'];
         $subsaharanafrica = $entry['sub_saharan_africa'];
-        $uppermiddleincome = $entry['upper_middle_income'];
 
-        $sql = "INSERT INTO ApiContinent (nom_pays, drapeaupays, arabworld, centraleuropeandthebaltics, eastasiapacific, euroarea, europecentralasia, europeanunion, highincome, latinamericacaribbean, owincome, lowermiddleincome, middleeastnorthafrica, northamerica, oecdmembers, subsaharanafrica, uppermiddleincome) 
-                VALUES ('$nom_pays', '$drapeaupays', $arabworld, $centraleuropeandthebaltics, $eastasiapacific, $euroarea, $europecentralasia, $europeanunion, $highincome, $latinamericacaribbean, $owincome, $lowermiddleincome, $middleeastnorthafrica, $northamerica, $oecdmembers, $subsaharanafrica, $uppermiddleincome)";
+        $sql = "INSERT INTO ApiContinent (nom_pays, drapeaupays, arabworld, continentaleurope, asiaoceania, europecentralasia, latinamericacaribbean, northamerica, subsaharanafrica) 
+                VALUES ('$nom_pays', '$drapeaupays', $arabworld, $continentaleurope, $asiaoceania, $europecentralasia, $latinamericacaribbean, $northamerica, $subsaharanafrica)";
 
         if ($connexion->query($sql) === true) {
             echo "Données continent insérées avec succès dans la base de données.<br>";
