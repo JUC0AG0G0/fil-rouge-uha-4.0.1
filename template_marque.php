@@ -66,8 +66,15 @@
                 <?php
                     if ($constructeurData) {
                         $pays = $constructeurData['pays'];
-                        $flagPath = './img/drapeau_svg/' . $pays . '.svg';
-                        echo '<img src="' . htmlspecialchars($flagPath, ENT_QUOTES, 'UTF-8') . '" class="paysorigine">';
+
+                        // Recherche du lien du drapeau du pays dans la table ApiContinent
+                        $drapeauQuery = $bdd->prepare('SELECT drapeaupays FROM ApiContinent WHERE nom_pays = ?');
+                        $drapeauQuery->execute([$pays]);
+                        $drapeau = $drapeauQuery->fetch();
+
+                        echo '<img src="' . htmlspecialchars($drapeau['drapeaupays'], ENT_QUOTES, 'UTF-8') . '" class="paysorigine">';
+
+
                         echo '<p class="nompays">' . htmlspecialchars($pays, ENT_QUOTES, 'UTF-8') . '</p>';
                     }
                 ?>
@@ -80,7 +87,7 @@
                     if ($constructeurData) {
                         echo '<div><span> Marque : </span><span>' . htmlspecialchars($constructeurData['nom'], ENT_QUOTES, 'UTF-8') . '</span></div><br>';
                         echo '<div><span> Creation : </span><span>' . htmlspecialchars($constructeurData['creation'], ENT_QUOTES, 'UTF-8') . '</span></div><br>';
-                        echo '<div><span> Fondateur : </span><span>' . htmlspecialchars($constructeurData['fondateur'], ENT_QUOTES, 'UTF-8') . '</span></div><br>';
+                        echo '<div><span> Fondateur : </span><span>' . htmlspecialchars($constructeurData['fondateur'], ENT_QUOTES, 'UTF-8') . '</span></div><br';
                         
                         $usinesQuery = $bdd->prepare('SELECT u.usines FROM UsinesConstructeur u
                             INNER JOIN LinkUsines lu ON u.id = lu.idusines
@@ -108,4 +115,3 @@
     </a>
 </body>
 </html>
-
