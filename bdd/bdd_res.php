@@ -217,7 +217,7 @@ if ($constructeur !== false && $voitures !== false && $continentpays !== false) 
 
 #################################################################################################################################################
 
-// Ajout des informations dans la table constructeur
+// Ajout des informations dans la table continentpays
 
 #################################################################################################################################################
 
@@ -236,11 +236,32 @@ if ($constructeur !== false && $voitures !== false && $continentpays !== false) 
                 VALUES ('$nom_pays', '$drapeaupays', $arabworld, $continentaleurope, $asiaoceania, $europecentralasia, $latinamericacaribbean, $northamerica, $subsaharanafrica)";
 
         if ($connexion->query($sql) === true) {
-            echo "Données continent insérées avec succès dans la base de données.<br>";
+            echo "Données continent insérées avec succès dans la base de données. " . $nom_pays . "<br>";
         } else {
             echo "Erreur lors de l'insertion des données : " . $connexion->error . "<br>";
         }
     }
+
+
+    $nom_pays_angleterre = "Angleterre";
+    $drapeau_angleterre = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Flag_of_England.svg/2560px-Flag_of_England.svg.png";
+    $arabworld_angleterre = "false";
+    $continentaleurope_angleterre = "true";
+    $asiaoceania_angleterre = "false";
+    $europecentralasia_angleterre = "false";
+    $latinamericacaribbean_angleterre = "false";
+    $northamerica_angleterre = "false";
+    $subsaharanafrica_angleterre = "false";
+
+    $sql = "INSERT INTO ApiContinent (nom_pays, drapeaupays, arabworld, continentaleurope, asiaoceania, europecentralasia, latinamericacaribbean, northamerica, subsaharanafrica) 
+    VALUES ('$nom_pays_angleterre', '$drapeau_angleterre', $arabworld_angleterre, $continentaleurope_angleterre, $asiaoceania_angleterre, $europecentralasia_angleterre, $latinamericacaribbean_angleterre, $northamerica_angleterre, $subsaharanafrica_angleterre)";
+
+    if ($connexion->query($sql) === true) {
+        echo "Données Angleterre insérées avec succès dans la base de données.<br>";
+    } else {
+        echo "Erreur lors de l'insertion des données : " . $connexion->error . "<br>";
+    }
+
 
 
 
