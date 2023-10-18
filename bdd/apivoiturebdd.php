@@ -5,7 +5,7 @@ $api_voitures = $bdd->prepare('SELECT * FROM ApiVoitures ORDER BY nom ASC');
 
 $excuteIsOk = $api_voitures->execute();
 
-$voitures = $api_voitures->fetchAll();
+$voitures = $api_voitures->fetchAll(PDO::FETCH_ASSOC);
 
 header('Content-Type: application/json');
 
