@@ -16,14 +16,12 @@ if ($connexion->connect_error) {
 }
 
 // Vérifier si le formulaire a été soumis
-if (isset($_POST['supprimer'])) {
-    // Récupérer l'ID de la voiture à supprimer depuis le formulaire
-    $idASupprimer = $_POST['suppr_voiture'];
+if (isset($_POST['supprimerc'])) {
+    // Récupérer l'ID du constructeur à supprimer depuis le formulaire
+    $idASupprimer = $_POST['suppr_constructeur'];
 
-    // Préparation de la requête SQL de suppression
-    $requete = "DELETE FROM ApiVoitures WHERE constructeur = ?";
+    // Préparation de la requête SQL de suppression pour ApiConstructeur
     $requete = "DELETE FROM ApiConstructeur WHERE id = ?";
-
 
     // Préparation de la requête
     if ($stmt = $connexion->prepare($requete)) {
@@ -32,9 +30,9 @@ if (isset($_POST['supprimer'])) {
 
         // Exécution de la requête
         if ($stmt->execute()) {
-            echo "L'entrée avec l'ID $idASupprimer a été supprimée avec succès.";
+            echo "Le constructeur avec l'ID $idASupprimer a été supprimé de la table ApiConstructeur avec succès.";
         } else {
-            echo "Échec de la suppression : " . $stmt->error;
+            echo "Échec de la suppression de la table ApiConstructeur : " . $stmt->error;
         }
 
         // Fermeture du statement
