@@ -76,4 +76,35 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.send("supprimer=true&suppr_voiture=" + idASupprimer);
     });
+
+    // Suppression d'un constructeur
+    const supprimerCButton = document.querySelector('[name="supprimerc"]');
+    supprimerCButton.addEventListener('click', function (e) {
+        e.preventDefault(); // Empêcher la soumission du formulaire
+
+        const supprConstructeurSelect = document.getElementById('suppr_constructeur');
+        const selectedOption = supprConstructeurSelect.options[supprConstructeurSelect.selectedIndex];
+
+        const idASupprimer = selectedOption.value;
+        const nomConstructeurASupprimer = selectedOption.getAttribute('data-name');
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', './bdd/supprimer_constructeur.php', true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    alert("Le constructeur " + nomConstructeurASupprimer + " a été supprimé avec succès.");
+                    location.reload(); // Actualiser la page
+                } else {
+                    alert("Une erreur s'est produite lors de la suppression du constructeur : " + xhr.status);
+                }
+            }
+        };
+
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send("supprimerc=true&suppr_constructeur=" + idASupprimer);
+    });
+
+
+
 });

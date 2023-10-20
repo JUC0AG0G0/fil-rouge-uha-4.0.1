@@ -138,20 +138,27 @@ $voitures = $voitureQuery->fetchAll();
                     </form>
                 </div>
             </div>
+
+
+
+
+
             <div class="choisiaff" id="supprc" >
                 <div class="formulaire" >
                     <form method="supprimer_constructeur" action="">
                     <h2>Voiture à supprimer :</h2>
-                        <select id="suppr_voiture" name="suppr_voiture">
+                        <select id="suppr_constructeur" name="suppr_constructeur">
                             <?php foreach ($constructeurs as $constructeurs) : ?>
                                 <option value="<?php echo $constructeurs['id']; ?>" data-name="<?php echo $constructeurs['nom']; ?>"><?php echo $constructeurs['nom']; ?></option>
                             <?php endforeach; ?>
                         </select>
 
-                        <input type="submit" name="supprimer" value="Supprimer"/>
+                        <input type="submit" name="supprimerv" value="Supprimer"/>
                     </form>
                 </div>
             </div>
+
+
             <div class="choisiaff" id="supprv">
                 <div class="formulaire">
                     <form method="post" action="">
@@ -164,9 +171,17 @@ $voitures = $voitureQuery->fetchAll();
                         </select>
 
                         <input type="submit" name="supprimer" value="Supprimer"/>
+
                     </form>
                 </div>
             </div>
+
+
+
+
+
+
+
             <div class="choisiaff" id="supprimer_bdd">
                 <div class="imgch"  >
                     <img src="./img/img_admin/supprimer-la-base-de-donnees.png" class="logo_admin" style="filter: brightness(0) invert(1) grayscale(100%) sepia(0%) saturate(0%);" >

@@ -19,13 +19,13 @@
         <?php
 
 
-        $europearabeworld = $_GET['arabworld'];
-        $europecontinentaleurope = $_GET['continentaleurope'];
-        $europeasiaoceania = $_GET['asiaoceania'];
-        $europeasiaoceania = $_GET['europecentralasia'];
-        $europeasiaoceania = $_GET['latinamericacaribbean'];
-        $europeasiaoceania = $_GET['northamerica'];
-        $europeasiaoceania = $_GET['subsaharanafrica'];
+        $urleuropearabeworld = $_GET['arabworld'];
+        $urleuropecontinentaleurope = $_GET['continentaleurope'];
+        $urleuropeasiaoceania = $_GET['asiaoceania'];
+        $urleuropeasiaoceania = $_GET['europecentralasia'];
+        $urleuropeasiaoceania = $_GET['latinamericacaribbean'];
+        $urleuropeasiaoceania = $_GET['northamerica'];
+        $urleuropeasiaoceania = $_GET['subsaharanafrica'];
         
       
         $bdd = new PDO('mysql:host=localhost;dbname=fil_rouge_401_Corneille_Jules', 'Fil_Rouge_Jules_Conrneille', '1234');
