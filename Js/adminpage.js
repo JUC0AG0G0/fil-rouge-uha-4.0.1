@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Suppression d'une voiture
-    const supprimerVButton = document.querySelector('[name="supprimer"]');
+    const supprimerVButton = document.querySelector('[name="supprimerv"]');
     supprimerVButton.addEventListener('click', function (e) {
         e.preventDefault(); // Empêcher la soumission du formulaire
 
@@ -82,6 +82,8 @@ document.addEventListener('DOMContentLoaded', function () {
     supprimerCButton.addEventListener('click', function (e) {
         e.preventDefault(); // Empêcher la soumission du formulaire
 
+        alert("formulaire envoyer")
+
         const supprConstructeurSelect = document.getElementById('suppr_constructeur');
         const selectedOption = supprConstructeurSelect.options[supprConstructeurSelect.selectedIndex];
 
@@ -91,13 +93,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', './bdd/supprimer_constructeur.php', true);
         xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    alert("Le constructeur " + nomConstructeurASupprimer + " a été supprimé avec succès.");
-                    location.reload(); // Actualiser la page
-                } else {
-                    alert("Une erreur s'est produite lors de la suppression du constructeur : " + xhr.status);
-                }
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                alert("Le constructeur " + nomConstructeurASupprimer + " a été supprimé avec succès.");
+                location.reload(); // Actualiser la page
             }
         };
 

@@ -153,7 +153,7 @@ $voitures = $voitureQuery->fetchAll();
                             <?php endforeach; ?>
                         </select>
 
-                        <input type="submit" name="supprimerv" value="Supprimer"/>
+                        <input type="submit" name="supprimerc" value="Supprimer"/>
                     </form>
                 </div>
             </div>
@@ -170,7 +170,7 @@ $voitures = $voitureQuery->fetchAll();
                             <?php endforeach; ?>
                         </select>
 
-                        <input type="submit" name="supprimer" value="Supprimer"/>
+                        <input type="submit" name="supprimerv" value="Supprimer"/>
 
                     </form>
                 </div>
