@@ -11,6 +11,9 @@ $voitureQuery = $bdd->prepare('SELECT id, nom FROM ApiVoitures ORDER BY nom ASC'
 $voitureQuery->execute();
 $voitures = $voitureQuery->fetchAll();
 
+$payscontinentQuery = $bdd->prepare('SELECT nom_pays FROM ApiContinent ORDER BY nom_pays ASC');
+$payscontinentQuery->execute();
+$payscontinent = $payscontinentQuery->fetchAll();
 
 
 ?>
@@ -74,6 +77,9 @@ $voitures = $voitureQuery->fetchAll();
                 </div>
             </button>
         </div>
+
+
+        
         <div class="choisi">
             <div class="choisiaff" id="addc" >
                 <div class="formulaire" >
@@ -90,10 +96,9 @@ $voitures = $voitureQuery->fetchAll();
 
                         <h2>Pays d'origine :</h2>
                         <select name="cars">
-                            <option value="Allemagne">Allemagne</option>
-                            <option value="Angleterre">Angleterre</option>
-                            <option value="france">France</option>
-                            <option value="Italie">Italie</option>
+                            <?php foreach ($payscontinent as $pays) : ?>
+                                <option value="<?php echo $pays['nom_pays']; ?>"><?php echo $pays['nom_pays']; ?></option>
+                            <?php endforeach; ?>
                         </select>
 
                         <h2>Usines :</h2>
@@ -104,8 +109,10 @@ $voitures = $voitureQuery->fetchAll();
 
                         <h2>Video :</h2>
                         <input type="file" name="video" accept=".mp4" />
+                        
+                        <br><br>
 
-                        <input type="submit" value="Ajouter"/>
+                        <input type="submit" value="Ajouter ce constructeur"/>
 
                     </form>
                 </div>
@@ -141,8 +148,6 @@ $voitures = $voitureQuery->fetchAll();
 
 
 
-
-
             <div class="choisiaff" id="supprc" >
                 <div class="formulaire" >
                     <form method="post" action="">
@@ -157,8 +162,6 @@ $voitures = $voitureQuery->fetchAll();
                     </form>
                 </div>
             </div>
-
-
             <div class="choisiaff" id="supprv">
                 <div class="formulaire">
                     <form method="post" action="">
@@ -175,13 +178,6 @@ $voitures = $voitureQuery->fetchAll();
                     </form>
                 </div>
             </div>
-
-
-
-
-
-
-
             <div class="choisiaff" id="supprimer_bdd">
                 <div class="imgch"  >
                     <img src="./img/img_admin/supprimer-la-base-de-donnees.png" class="logo_admin" style="filter: brightness(0) invert(1) grayscale(100%) sepia(0%) saturate(0%);" >
