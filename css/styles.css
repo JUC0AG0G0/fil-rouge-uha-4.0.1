@@ -76,7 +76,7 @@ a{
 
 
 .linkr{
-    background-color: rgba( 30, 30, 30, 0.8);
+    background-color: rgba( 20, 20, 20, 0.8);
     position: absolute;
     bottom: 0px;
     height: 25%;
@@ -94,15 +94,18 @@ a{
 
 .appuie{    
     display: inline-block;
-    margin: 50px;
-    margin-left: 80px;
-    margin-right: 80px;
+    margin: 5vh;
+    margin-left: 8vh;
+    margin-right: 8vh;
     justify-content: center;  
     height: 10vh;
     width: auto;
+    padding: 1vh;
 }
 
 .appuie:hover{
+    padding: 1vh;
+    border-radius: 25%;
     box-shadow: rgba(255, 255, 255, 0.6) 0px 0px 70px;
     background-color: rgba(255, 255, 255, 0.6) ;
     backdrop-filter: blur(3px);
