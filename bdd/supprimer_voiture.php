@@ -16,7 +16,7 @@ if ($connexion->connect_error) {
 }
 
 // Vérifier si le formulaire a été soumis
-if (isset($_POST['supprimer'])) {
+if (isset($_POST['supprimerv'])) {
     // Récupérer l'ID de la voiture à supprimer depuis le formulaire
     $idASupprimer = $_POST['suppr_voiture'];
 

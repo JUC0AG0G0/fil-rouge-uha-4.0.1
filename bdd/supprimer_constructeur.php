@@ -1,47 +1,74 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Connexion à la base de données
+// Établissez une connexion à votre base de données
 $serveur = "localhost";
 $utilisateur = "Fil_Rouge_Jules_Conrneille";
 $mot_de_passe = "1234";
 $base_de_donnees = "fil_rouge_401_Corneille_Jules";
 
-$connexion = new mysqli($serveur, $utilisateur, $mot_de_passe, $base_de_donnees);
-
-// Vérifier la connexion
-if ($connexion->connect_error) {
-    die("La connexion à la base de données a échoué : " . $connexion->connect_error);
+try {
+    $conn = new PDO("mysql:host=$serveur;dbname=$base_de_donnees", $utilisateur, $mot_de_passe);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    echo "Erreur de connexion à la base de données: " . $e->getMessage();
 }
 
-// Vérifier si le formulaire a été soumis
-if (isset($_POST['supprimerc'])) {
-    // Récupérer l'ID du constructeur à supprimer depuis le formulaire
-    $idASupprimer = $_POST['suppr_constructeur'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["suppr_constructeur"])) {
+        $constructeur_id = $_POST["suppr_constructeur"];
 
-    // Préparation de la requête SQL de suppression pour ApiConstructeur
-    $requete = "DELETE FROM ApiConstructeur WHERE id = ?";
+        // Supprimez la ligne correspondant à l'ID sélectionné
+        $sql = "DELETE FROM LinkUsines WHERE id_constructeurs = :id";
 
-    // Préparation de la requête
-    if ($stmt = $connexion->prepare($requete)) {
-        // Liaison des paramètres
-        $stmt->bind_param("i", $idASupprimer);
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':id', $constructeur_id, PDO::PARAM_INT);
+            $stmt->execute();
 
-        // Exécution de la requête
-        if ($stmt->execute()) {
-            echo "Le constructeur avec l'ID $idASupprimer a été supprimé de la table ApiConstructeur avec succès.";
-        } else {
-            echo "Échec de la suppression de la table ApiConstructeur : " . $stmt->error;
+            echo "Ligne supprimée avec succès.";
+        } catch (PDOException $e) {
+            echo "Erreur lors de la suppression de la ligne: " . $e->getMessage();
         }
-
-        // Fermeture du statement
-        $stmt->close();
-    } else {
-        echo "Échec de la préparation de la requête : " . $connexion->error;
     }
 }
 
-// Fermeture de la connexion à la base de données
-$connexion->close();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["suppr_constructeur"])) {
+        $constructeur_id = $_POST["suppr_constructeur"];
+
+        // Supprimez la ligne correspondant à l'ID sélectionné
+        $sql = "DELETE FROM ApiVoitures WHERE constructeur = :id";
+
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':id', $constructeur_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            echo "Ligne supprimée avec succès.";
+        } catch (PDOException $e) {
+            echo "Erreur lors de la suppression de la ligne: " . $e->getMessage();
+        }
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["suppr_constructeur"])) {
+        $constructeur_id = $_POST["suppr_constructeur"];
+
+        // Supprimez la ligne correspondant à l'ID sélectionné
+        $sql = "DELETE FROM ApiConstructeur WHERE id = :id";
+
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':id', $constructeur_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            echo "Ligne supprimée avec succès.";
+        } catch (PDOException $e) {
+            echo "Erreur lors de la suppression de la ligne: " . $e->getMessage();
+        }
+    }
+}
+
+// Fermez la connexion à la base de données
+$conn = null;
 ?>
