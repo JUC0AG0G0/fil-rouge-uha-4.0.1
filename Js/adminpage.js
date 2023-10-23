@@ -77,4 +77,31 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.send("supprimerv=true&suppr_voiture=" + idASupprimer);
     });
 
+
+    // Suppression d'un constructeur
+    const supprimerCButton = document.querySelector('[name="supprimerc"]');
+    supprimerCButton.addEventListener('click', function (e) {
+        e.preventDefault(); // Empêcher la soumission du formulaire
+
+        const supprConstructeurSelect = document.getElementById('suppr_constructeur');
+        const selectedOption = supprConstructeurSelect.options[supprConstructeurSelect.selectedIndex];
+
+        const idASupprimer = selectedOption.value;
+        const nomConstructeurASupprimer = selectedOption.getAttribute('data-name');
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', './bdd/supprimer_constructeur.php', true); // Assurez-vous que le chemin du fichier PHP est correct
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                alert("Le constructeur " + nomConstructeurASupprimer + " a été supprimé avec succès.");
+                location.reload(); // Actualiser la page
+
+            }
+        };
+
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send("supprimerc=true&suppr_constructeur=" + idASupprimer);
+    });
+
+
 });

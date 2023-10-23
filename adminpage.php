@@ -145,7 +145,7 @@ $voitures = $voitureQuery->fetchAll();
 
             <div class="choisiaff" id="supprc" >
                 <div class="formulaire" >
-                    <form method="post" action="./bdd/supprimer_constructeur.php">
+                    <form method="post" action="">
                         <h2>Constructeur à supprimer :</h2>
                         <select id="suppr_constructeur" name="suppr_constructeur">
                             <?php foreach ($constructeurs as $constructeur) : ?>
