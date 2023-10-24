@@ -78,7 +78,7 @@ if ($connexion->query($create_table_ApiContinent_query) === true) {
 
 // Créer la table ApiConstructeur si elle n'existe pas
 $create_table_constructeur_query = "CREATE TABLE IF NOT EXISTS ApiConstructeur (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY,
     nom VARCHAR(255),
     creation VARCHAR(4),
     fondateur VARCHAR(255),
@@ -147,7 +147,7 @@ if ($connexion->query($create_table_linkusines_query) === true) {
 
 // Créer la table ApiVoitures si elle n'existe pas
 $create_table_apivoiture_query = "CREATE TABLE IF NOT EXISTS ApiVoitures (
-    id INT AUTO_INCREMENT PRIMARY KEY AUTO_INCREMENT,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     constructeur INT NOT NULL,
@@ -235,63 +235,24 @@ if ($constructeur !== false && $voitures !== false && $continentpays !== false) 
         echo "Erreur lors de l'insertion des données : " . $connexion->error . "<br>";
     }
 
-    $nom_pays_allemagne = "Allemagne";
-    $drapeau_allemagne = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/1920px-Flag_of_Germany.svg.png";
-    $arabworld_allemagne = "false";
-    $continentaleurope_allemagne = "true";
-    $asiaoceania_allemagne = "false";
-    $europecentralasia_allemagne = "false";
-    $latinamericacaribbean_allemagne = "false";
-    $northamerica_allemagne = "false";
-    $subsaharanafrica_allemagne = "false";
+    $nom_pays_italie = "Italie";
+    $drapeau_italie = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/1920px-Flag_of_Italy.svg.png";
+    $arabworld_italie = "false";
+    $continentaleurope_italie = "true";
+    $asiaoceania_italie = "false";
+    $europecentralasia_italie = "false";
+    $latinamericacaribbean_italie = "false";
+    $northamerica_italie = "false";
+    $subsaharanafrica_italie = "false";
 
     $sql = "INSERT INTO ApiContinent (nom_pays, drapeaupays, arabworld, continentaleurope, asiaoceania, europecentralasia, latinamericacaribbean, northamerica, subsaharanafrica) 
-    VALUES ('$nom_pays_allemagne', '$drapeau_allemagne', $arabworld_allemagne, $continentaleurope_allemagne, $asiaoceania_allemagne, $europecentralasia_allemagne, $latinamericacaribbean_allemagne, $northamerica_allemagne, $subsaharanafrica_allemagne)";
+    VALUES ('$nom_pays_italie', '$drapeau_italie', $arabworld_italie, $continentaleurope_italie, $asiaoceania_italie, $europecentralasia_italie, $latinamericacaribbean_italie, $northamerica_italie, $subsaharanafrica_italie)";
 
     if ($connexion->query($sql) === true) {
         echo "Données Allemagne insérées avec succès dans la base de données.<br>";
     } else {
         echo "Erreur lors de l'insertion des données : " . $connexion->error . "<br>";
     }
-
-    $nom_pays_japon = "Japon";
-    $drapeau_japon = "https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/1280px-Flag_of_Japan.svg.png";
-    $arabworld_japon = "false";
-    $continentaleurope_japon = "false";
-    $asiaoceania_japon = "true";
-    $europecentralasia_japon = "false";
-    $latinamericacaribbean_japon = "false";
-    $northamerica_japon = "false";
-    $subsaharanafrica_japon = "false";
-
-    $sql = "INSERT INTO ApiContinent (nom_pays, drapeaupays, arabworld, continentaleurope, asiaoceania, europecentralasia, latinamericacaribbean, northamerica, subsaharanafrica) 
-    VALUES ('$nom_pays_japon', '$drapeau_japon', $arabworld_japon, $continentaleurope_japon, $asiaoceania_japon, $europecentralasia_japon, $latinamericacaribbean_japon, $northamerica_japon, $subsaharanafrica_japon)";
-
-    if ($connexion->query($sql) === true) {
-        echo "Données Japon insérées avec succès dans la base de données.<br>";
-    } else {
-        echo "Erreur lors de l'insertion des données : " . $connexion->error . "<br>";
-    }
-
-    $nom_pays_france = "France";
-    $drapeau_france = "https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/1280px-Flag_of_France.svg.png";
-    $arabworld_france = "false";
-    $continentaleurope_france = "true";
-    $asiaoceania_france = "false";
-    $europecentralasia_france = "false";
-    $latinamericacaribbean_france = "false";
-    $northamerica_france = "false";
-    $subsaharanafrica_france = "false";
-
-    $sql = "INSERT INTO ApiContinent (nom_pays, drapeaupays, arabworld, continentaleurope, asiaoceania, europecentralasia, latinamericacaribbean, northamerica, subsaharanafrica) 
-    VALUES ('$nom_pays_france', '$drapeau_france', $arabworld_france, $continentaleurope_france, $asiaoceania_france, $europecentralasia_france, $latinamericacaribbean_france, $northamerica_france, $subsaharanafrica_france)";
-
-    if ($connexion->query($sql) === true) {
-        echo "Données France insérées avec succès dans la base de données.<br>";
-    } else {
-        echo "Erreur lors de l'insertion des données : " . $connexion->error . "<br>";
-    }
-
 
 
 
