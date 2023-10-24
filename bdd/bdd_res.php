@@ -78,7 +78,7 @@ if ($connexion->query($create_table_ApiContinent_query) === true) {
 
 // Créer la table ApiConstructeur si elle n'existe pas
 $create_table_constructeur_query = "CREATE TABLE IF NOT EXISTS ApiConstructeur (
-    id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     nom VARCHAR(255),
     creation VARCHAR(4),
     fondateur VARCHAR(255),
@@ -147,7 +147,7 @@ if ($connexion->query($create_table_linkusines_query) === true) {
 
 // Créer la table ApiVoitures si elle n'existe pas
 $create_table_apivoiture_query = "CREATE TABLE IF NOT EXISTS ApiVoitures (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY AUTO_INCREMENT,
     nom VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     constructeur INT NOT NULL,
