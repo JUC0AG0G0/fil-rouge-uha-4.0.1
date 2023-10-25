@@ -136,5 +136,34 @@ if (isset($_POST["ajouterc"])) {
 
         <input type="submit" name="ajouterc" value="Ajouter ce constructeur"/>
     </form>
+
+
+    <div class="formulaire" >
+        <form method="addvoiture" action="">
+
+            <h2>Nom :</h2>
+            <input type="text" name="nom" />
+
+            <h2>Année de production :</h2>
+            <input type="text" name="description" />
+
+            <h2>constructeur :</h2>
+            <select name="constructeur" >
+                <?php foreach ($constructeurs as $constructeur) : ?>
+                    <option value="<?php echo $constructeur['id']; ?>"><?php echo $constructeur['nom']; ?></option>
+                <?php endforeach; ?>
+            </select>
+
+            <h2>Nombre de modele produit :</h2>
+            <input type="number" name="production" min="1" />
+
+            <h2>Image :</h2>
+            <input type="url" name="image"  />
+
+            <input type="submit" value="Ajouter"/>
+
+        </form>
+    </div>
+
 </body>
 </html>
