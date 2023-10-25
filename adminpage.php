@@ -250,6 +250,8 @@ if (isset($_POST["ajouterv"])) {
 
                         <h2>Image :</h2>
                         <input type="url" name="imagev" required />
+                        
+                        <br><br>
 
                         <input type="submit" name="ajouterv" value="Ajouter"/>
                     </form>
@@ -267,6 +269,8 @@ if (isset($_POST["ajouterv"])) {
                                 <option value="<?php echo $constructeur['id']; ?>" data-name="<?php echo $constructeur['nom']; ?>"><?php echo $constructeur['nom']; ?></option>
                             <?php endforeach; ?>
                         </select>
+                        
+                        <br><br>
 
                         <input type="submit" name="supprimerc" value="Supprimer"/>
                     </form>
@@ -282,8 +286,10 @@ if (isset($_POST["ajouterv"])) {
                                 <option value="<?php echo $voiture['id']; ?>" data-name="<?php echo $voiture['nom']; ?>"><?php echo $voiture['nom']; ?></option>
                             <?php endforeach; ?>
                         </select>
+                        
+                        <br><br>
 
-                        <input type="submit" name="supprimerv" value="Supprimer"/>
+                        <input type="submit" name="upgradev" value="Supprimer"/>
 
                     </form>
                 </div>
@@ -300,7 +306,31 @@ if (isset($_POST["ajouterv"])) {
                             <?php endforeach; ?>
                         </select>
 
-                        <input type="submit" name="supprimerc" value="Supprimer"/>
+                        <h2>Nom :</h2>
+                        <input type="text" name="nom" />
+
+                        <h2>Année de création :</h2>
+                        <input type="number" name="creation" min="1000" max="9999" />
+
+                        <h2>Fondateur :</h2>
+                        <input type="text" name="fondateur" />
+
+                        <h2>Pays d'origine :</h2>
+                        <select name="pays">
+                            <?php foreach ($payscontinent as $pays) : ?>
+                                <option value="<?php echo $pays['nom_pays']; ?>"><?php echo $pays['nom_pays']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <h2>Logo :</h2>
+                        <input type="file" name="logo" accept=".svg" />
+
+                        <h2>Video :</h2>
+                        <input type="file" name="video" accept=".mp4" />
+
+                        <br><br>
+
+                        <input type="submit" name="upgradec" value="Supprimer"/>
                     </form>
                 </div>
             </div>
@@ -314,6 +344,27 @@ if (isset($_POST["ajouterv"])) {
                                 <option value="<?php echo $voiture['id']; ?>" data-name="<?php echo $voiture['nom']; ?>"><?php echo $voiture['nom']; ?></option>
                             <?php endforeach; ?>
                         </select>
+
+                        <h2>Nom :</h2>
+                        <input type="text" name="nomv" required />
+
+                        <h2>Description :</h2>
+                        <input type="text" name="descriptionv" required />
+
+                        <h2>Constructeur :</h2>
+                        <select name="constructeurv" required>
+                            <?php foreach ($constructeurs as $constructeur) : ?>
+                                <option value="<?php echo $constructeur['id']; ?>"><?php echo $constructeur['nom']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <h2>Production :</h2>
+                        <input type="number" name="productionv" min="1" required />
+
+                        <h2>Image :</h2>
+                        <input type="url" name="imagev" required />
+                        
+                        <br><br>
 
                         <input type="submit" name="supprimerv" value="Supprimer"/>
 
