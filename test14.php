@@ -232,42 +232,61 @@ if (isset($_POST["ajouterv"])) {
     </script>
 
 
-
-
-    <form method="post" action="">
-
+    <form method="post" action="./bdd/modifier_voiture.php">
         <h2>Voiture à modifier :</h2>
-        <select id="suppr_voiture" name="suppr_voiture">
+        <select id="voitureSelect" name="voitureId">
             <?php foreach ($voitures as $voiture) : ?>
-                <option value="<?php echo $voiture['id']; ?>" data-name="<?php echo $voiture['nom']; ?>"><?php echo $voiture['nom']; ?></option>
+                <option value="<?php echo $voiture['id']; ?>"><?php echo $voiture['nom']; ?></option>
             <?php endforeach; ?>
         </select>
 
-        <h2>Nom :</h2>
-        <input type="text" name="nomupv" required />
+        <button type="button" id="chargerVoiture">Charger la voiture</button>
 
         <h2>Description :</h2>
-        <input type="text" name="descriptionupv" required />
+        <input type="text" name="descriptionupv" id="descriptionupv" required />
 
         <h2>Constructeur :</h2>
-        <select name="constructeurupv" required>
+        <select name="constructeurupv" id="constructeurupv"  required>
             <?php foreach ($constructeurs as $constructeur) : ?>
                 <option value="<?php echo $constructeur['id']; ?>"><?php echo $constructeur['nom']; ?></option>
             <?php endforeach; ?>
         </select>
 
         <h2>Production :</h2>
-        <input type="number" name="productionupv" min="1" required />
+        <input type="number" name="productionupv" id="productionupv" min="1" required />
 
         <h2>Image :</h2>
-        <input type="url" name="imageupv" required />
-        
+        <input type="url" name="imageupv" id="imageupv" required />
+
         <br><br>
 
-        <input type="submit" name="supprimerv" value="Modifier la voiture"/>
-
+        <input type="submit" name="modifier_voiture" value="Modifier la voiture"/>
     </form>
 
+    <script>
+        document.getElementById("chargerVoiture").addEventListener("click", function() {
+            const selectElement = document.getElementById("voitureSelect");
+            const selectedId = selectElement.value;
+
+            if (selectedId) {
+                // Effectuer une requête AJAX pour récupérer les données de la voiture
+                const xhr = new XMLHttpRequest();
+                xhr.open("GET", `./bdd/recuperer_voiture.php?idupv=${selectedId}`, true);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        const data = JSON.parse(xhr.responseText);
+
+                        // Remplir les champs avec les données récupérées
+                        document.getElementById("descriptionupv").value = data.description;
+                        document.getElementById("constructeurupv").value = data.constructeur;
+                        document.getElementById("productionupv").value = data.production;
+                        document.getElementById("imageupv").value = data.image;
+                    }
+                };
+                xhr.send();
+            }
+        });
+    </script>
 
 </body>
 </html>
