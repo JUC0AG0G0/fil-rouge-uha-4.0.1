@@ -25,9 +25,9 @@ $base_de_donnees = "fil_rouge_401_Corneille_Jules";
 try {
     $conn = new PDO("mysql:host=$serveur;dbname=$base_de_donnees", $utilisateur, $mot_de_passe);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "La connexion a bien été établie";
+    // echo "La connexion a bien été établie";
 } catch (PDOException $e) {
-    echo "Erreur de connexion à la base de données: " . $e->getMessage();
+    // echo "Erreur de connexion à la base de données: " . $e->getMessage();
 }
 
 if (isset($_POST["ajouterc"])) {
@@ -46,7 +46,7 @@ if (isset($_POST["ajouterc"])) {
         $logoTempFile = $_FILES['logo']['tmp_name'];
         $logoFilePath = $logoDestination . $logoFileName;
     } else {
-        echo "Erreur : Le fichier du logo n'a pas été correctement soumis.";
+        // echo "Erreur : Le fichier du logo n'a pas été correctement soumis.";
         exit;
     }
 
@@ -56,7 +56,7 @@ if (isset($_POST["ajouterc"])) {
         $videoTempFile = $_FILES['video']['tmp_name'];
         $videoFilePath = $videoDestination . $videoFileName;
     } else {
-        echo "Erreur : Le fichier de la vidéo n'a pas été correctement soumis.";
+        // echo "Erreur : Le fichier de la vidéo n'a pas été correctement soumis.";
         exit;
     }
 
@@ -69,18 +69,17 @@ if (isset($_POST["ajouterc"])) {
     }
 
     // Affichez des messages de débogage pour vérifier les valeurs
-    echo "Nom: " . $nom . "<br>";
-    echo "Année de création: " . $creation . "<br>";
-    echo "Fondateur: " . $fondateur . "<br>";
-    echo "Pays d'origine: " . $pays . "<br>";
+    // echo "Nom: " . $nom . "<br>";
+    // echo "Année de création: " . $creation . "<br>";
+    // echo "Fondateur: " . $fondateur . "<br>";
+    // echo "Pays d'origine: " . $pays . "<br>";
 
-    // Affichez des informations sur les fichiers téléchargés
-    echo "Nom du fichier du logo: " . $logoFileName . "<br>";
-    echo "Nom du fichier de la vidéo: " . $videoFileName . "<br>";
+    // echo "Nom du fichier du logo: " . $logoFileName . "<br>";
+    // echo "Nom du fichier de la vidéo: " . $videoFileName . "<br>";
 
     // Déplacez les fichiers téléchargés vers les répertoires de destination
     if (move_uploaded_file($logoTempFile, $logoFilePath) && move_uploaded_file($videoTempFile, $videoFilePath)) {
-        echo "Fichiers téléchargés avec succès.<br>";
+        // echo "Fichiers téléchargés avec succès.<br>";
         // Les fichiers ont été téléchargés avec succès, ajoutez maintenant les données à la base de données
         $sql = "INSERT INTO `ApiConstructeur`(`nom`, `creation`, `fondateur`, `pays`) VALUES (:nom, :creation, :fondateur, :pays)";
         $stmt = $conn->prepare($sql);
@@ -92,12 +91,12 @@ if (isset($_POST["ajouterc"])) {
 
         try {
             $stmt->execute();
-            echo "Constructeur ajouté avec succès.";
+            // echo "Constructeur ajouté avec succès.";
         } catch (PDOException $e) {
-            echo "Erreur lors de l'ajout du constructeur : " . $e->getMessage();
+            // echo "Erreur lors de l'ajout du constructeur : " . $e->getMessage();
         }
     } else {
-        echo "Erreur lors du téléchargement des fichiers.";
+        // echo "Erreur lors du téléchargement des fichiers.";
     }
 }
 ?>
