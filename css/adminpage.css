@@ -42,9 +42,9 @@ button {
     content: "";
     position: absolute;
     background: #fff;
-    width: 15%;
+    width: 10%;
     height: 2px;
-    bottom: 30px ;
+    bottom: 20%;
     transform-origin: 100% 0;
     transform: scaleX(0);
     transition: transform 0.4s;
