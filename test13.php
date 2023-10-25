@@ -99,8 +99,32 @@ if (isset($_POST["ajouterc"])) {
         // echo "Erreur lors du téléchargement des fichiers.";
     }
 }
-?>
 
+if (isset($_POST["ajouterv"])) {
+    $nomv = $_POST['nomv'];
+    $descriptionv = $_POST['descriptionv'];
+    $constructeurv = $_POST['constructeurv'];
+    $productionv = $_POST['productionv'];
+    $imagev = $_POST['imagev'];
+
+    $sql = "INSERT INTO `ApiVoitures`(`nom`, `description`, `constructeur`, `production`, `image`) VALUES (:nomv, :descriptionv, :constructeurv, :productionv, :imagev)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':nomv', $nomv);
+    $stmt->bindParam(':descriptionv', $descriptionv);
+    $stmt->bindParam(':constructeurv', $constructeurv);
+    $stmt->bindParam(':productionv', $productionv);
+    $stmt->bindParam(':imagev', $imagev);
+
+    try {
+        $stmt->execute();
+        // echo "Constructeur ajouté avec succès.";
+    } catch (PDOException $e) {
+        // echo "Erreur lors de l'ajout du constructeur : " . $e->getMessage();
+    }
+    
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -137,33 +161,28 @@ if (isset($_POST["ajouterc"])) {
         <input type="submit" name="ajouterc" value="Ajouter ce constructeur"/>
     </form>
 
+    <h1>Ajout de Voiture</h1>
+    <form method="POST" action="">
+        <h2>Nom :</h2>
+        <input type="text" name="nomv" required />
 
-    <div class="formulaire" >
-        <form method="addvoiture" action="">
+        <h2>Description :</h2>
+        <input type="text" name="descriptionv" required />
 
-            <h2>Nom :</h2>
-            <input type="text" name="nom" />
+        <h2>Constructeur :</h2>
+        <select name="constructeurv" required>
+            <?php foreach ($constructeurs as $constructeur) : ?>
+                <option value="<?php echo $constructeur['id']; ?>"><?php echo $constructeur['nom']; ?></option>
+            <?php endforeach; ?>
+        </select>
 
-            <h2>Année de production :</h2>
-            <input type="text" name="description" />
+        <h2>Production :</h2>
+        <input type="number" name="productionv" min="1" required />
 
-            <h2>constructeur :</h2>
-            <select name="constructeur" >
-                <?php foreach ($constructeurs as $constructeur) : ?>
-                    <option value="<?php echo $constructeur['id']; ?>"><?php echo $constructeur['nom']; ?></option>
-                <?php endforeach; ?>
-            </select>
+        <h2>Image :</h2>
+        <input type="url" name="imagev" required />
 
-            <h2>Nombre de modele produit :</h2>
-            <input type="number" name="production" min="1" />
-
-            <h2>Image :</h2>
-            <input type="url" name="image"  />
-
-            <input type="submit" value="Ajouter"/>
-
-        </form>
-    </div>
-
+        <input type="submit" name="ajouterv" value="Ajouter"/>
+    </form>
 </body>
 </html>
