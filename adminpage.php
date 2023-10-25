@@ -298,40 +298,58 @@ if (isset($_POST["ajouterv"])) {
 
             <div class="choisiaff" id="upc" >
                 <div class="formulaire" >
-                    <form method="post" action="">
+                    <form method="post" action="./bdd/modifier_constructeur.php">
                         <h2>Constructeur à modifier :</h2>
-                        <select id="suppr_constructeur" name="suppr_constructeur">
+                        <select id="constructeurSelect" name="constructeurId">
                             <?php foreach ($constructeurs as $constructeur) : ?>
-                                <option value="<?php echo $constructeur['id']; ?>" data-name="<?php echo $constructeur['nom']; ?>"><?php echo $constructeur['nom']; ?></option>
+                                <option value="<?php echo $constructeur['id']; ?>"><?php echo $constructeur['nom']; ?></option>
                             <?php endforeach; ?>
                         </select>
 
-                        <h2>Nom :</h2>
-                        <input type="text" name="nom" />
+                        <button type="button" id="chargerConstructeur">Charger le constructeur</button>
 
                         <h2>Année de création :</h2>
-                        <input type="number" name="creation" min="1000" max="9999" />
+                        <input type="number" name="creation" id="creation" min="1000" max="9999" />
 
                         <h2>Fondateur :</h2>
-                        <input type="text" name="fondateur" />
+                        <input type="text" name="fondateur" id="fondateur" />
 
                         <h2>Pays d'origine :</h2>
-                        <select name="pays">
+                        <select name="pays" id="pays">
                             <?php foreach ($payscontinent as $pays) : ?>
                                 <option value="<?php echo $pays['nom_pays']; ?>"><?php echo $pays['nom_pays']; ?></option>
                             <?php endforeach; ?>
                         </select>
 
-                        <h2>Logo :</h2>
-                        <input type="file" name="logo" accept=".svg" />
-
-                        <h2>Video :</h2>
-                        <input type="file" name="video" accept=".mp4" />
-
                         <br><br>
 
-                        <input type="submit" name="upgradec" value="Supprimer"/>
+                        <input type="submit" name="modifier_constructeur" value="Modifier le constructeur"/>
                     </form>
+
+                    <script>
+                        document.getElementById("chargerConstructeur").addEventListener("click", function() {
+                            const selectElement = document.getElementById("constructeurSelect");
+                            const selectedId = selectElement.value;
+
+                            if (selectedId) {
+                                // Effectuer une requête AJAX pour récupérer les données du constructeur
+                                const xhr = new XMLHttpRequest();
+                                xhr.open("GET", `./bdd/recuperer_constructeur.php?id=${selectedId}`, true);
+                                xhr.onload = function() {
+                                    if (xhr.status === 200) {
+                                        const data = JSON.parse(xhr.responseText);
+
+                                        // Remplir les champs avec les données récupérées
+                                        document.getElementById("creation").value = data.creation;
+                                        document.getElementById("fondateur").value = data.fondateur;
+                                        document.getElementById("pays").value = data.pays;
+                                    }
+                                };
+                                xhr.send();
+                            }
+                        });
+                    </script>
+
                 </div>
             </div>
             <div class="choisiaff" id="upv">
