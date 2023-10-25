@@ -42,7 +42,7 @@ if (isset($_POST["ajouterc"])) {
 
     // Vérifie si le fichier "logo" a été soumis
     if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
-        $logoFileName = $_FILES['logo']['name'];
+        $logoFileName = $nom . '.' . pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION); // Renomme le fichier avec le nom du formulaire
         $logoTempFile = $_FILES['logo']['tmp_name'];
         $logoFilePath = $logoDestination . $logoFileName;
     } else {
@@ -52,7 +52,7 @@ if (isset($_POST["ajouterc"])) {
 
     // Vérifie si le fichier "video" a été soumis
     if (isset($_FILES['video']) && $_FILES['video']['error'] === UPLOAD_ERR_OK) {
-        $videoFileName = $_FILES['video']['name'];
+        $videoFileName = $nom . '.' . pathinfo($_FILES['video']['name'], PATHINFO_EXTENSION); // Renomme le fichier avec le nom du formulaire
         $videoTempFile = $_FILES['video']['tmp_name'];
         $videoFilePath = $videoDestination . $videoFileName;
     } else {
