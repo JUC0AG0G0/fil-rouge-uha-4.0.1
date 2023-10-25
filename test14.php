@@ -68,16 +68,7 @@ if (isset($_POST["ajouterc"])) {
         mkdir($videoDestination, 0777, true);
     }
 
-    // Affichez des messages de débogage pour vérifier les valeurs
-    // echo "Nom: " . $nom . "<br>";
-    // echo "Année de création: " . $creation . "<br>";
-    // echo "Fondateur: " . $fondateur . "<br>";
-    // echo "Pays d'origine: " . $pays . "<br>";
 
-    // echo "Nom du fichier du logo: " . $logoFileName . "<br>";
-    // echo "Nom du fichier de la vidéo: " . $videoFileName . "<br>";
-
-    // Déplacez les fichiers téléchargés vers les répertoires de destination
     if (move_uploaded_file($logoTempFile, $logoFilePath) && move_uploaded_file($videoTempFile, $videoFilePath)) {
         // echo "Fichiers téléchargés avec succès.<br>";
         // Les fichiers ont été téléchargés avec succès, ajoutez maintenant les données à la base de données
@@ -125,12 +116,15 @@ if (isset($_POST["ajouterv"])) {
 }
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>test 12</title>
+    
 </head>
 <body>
     <form method="POST" action="" enctype="multipart/form-data">
@@ -185,44 +179,61 @@ if (isset($_POST["ajouterv"])) {
         <input type="submit" name="ajouterv" value="Ajouter"/>
     </form>
 
-    <form method="post" action="">
+    <form method="post" action="./bdd/modifier_constructeur.php">
         <h2>Constructeur à modifier :</h2>
-        <select id="suppr_constructeur" name="suppr_constructeur">
+        <select id="constructeurSelect" name="constructeurId">
             <?php foreach ($constructeurs as $constructeur) : ?>
-                <option value="<?php echo $constructeur['id']; ?>" data-name="<?php echo $constructeur['nom']; ?>"><?php echo $constructeur['nom']; ?></option>
+                <option value="<?php echo $constructeur['id']; ?>"><?php echo $constructeur['nom']; ?></option>
             <?php endforeach; ?>
         </select>
 
-        <h2>Nom :</h2>
-        <input type="text" name="nom" />
+        <button type="button" id="chargerConstructeur">Charger le constructeur</button>
 
         <h2>Année de création :</h2>
-        <input type="number" name="creation" min="1000" max="9999" />
+        <input type="number" name="creation" id="creation" min="1000" max="9999" />
 
         <h2>Fondateur :</h2>
-        <input type="text" name="fondateur" />
+        <input type="text" name="fondateur" id="fondateur" />
 
         <h2>Pays d'origine :</h2>
-        <select name="pays">
+        <select name="pays" id="pays">
             <?php foreach ($payscontinent as $pays) : ?>
                 <option value="<?php echo $pays['nom_pays']; ?>"><?php echo $pays['nom_pays']; ?></option>
             <?php endforeach; ?>
         </select>
 
-        <h2>Logo :</h2>
-        <input type="file" name="logo" accept=".svg" />
-
-        <h2>Video :</h2>
-        <input type="file" name="video" accept=".mp4" />
-
         <br><br>
 
-        <input type="submit" name="upgradec" value="Supprimer"/>
+        <input type="submit" name="modifier_constructeur" value="Modifier le constructeur"/>
     </form>
 
+    <script>
+        document.getElementById("chargerConstructeur").addEventListener("click", function() {
+            const selectElement = document.getElementById("constructeurSelect");
+            const selectedId = selectElement.value;
+
+            if (selectedId) {
+                // Effectuer une requête AJAX pour récupérer les données du constructeur
+                const xhr = new XMLHttpRequest();
+                xhr.open("GET", `./bdd/recuperer_constructeur.php?id=${selectedId}`, true);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        const data = JSON.parse(xhr.responseText);
+
+                        // Remplir les champs avec les données récupérées
+                        document.getElementById("creation").value = data.creation;
+                        document.getElementById("fondateur").value = data.fondateur;
+                        document.getElementById("pays").value = data.pays;
+                    }
+                };
+                xhr.send();
+            }
+        });
+    </script>
 
 
-    
+
+
     <form method="post" action="">
 
         <h2>Voiture à modifier :</h2>
@@ -233,27 +244,27 @@ if (isset($_POST["ajouterv"])) {
         </select>
 
         <h2>Nom :</h2>
-        <input type="text" name="nomv" required />
+        <input type="text" name="nomupv" required />
 
         <h2>Description :</h2>
-        <input type="text" name="descriptionv" required />
+        <input type="text" name="descriptionupv" required />
 
         <h2>Constructeur :</h2>
-        <select name="constructeurv" required>
+        <select name="constructeurupv" required>
             <?php foreach ($constructeurs as $constructeur) : ?>
                 <option value="<?php echo $constructeur['id']; ?>"><?php echo $constructeur['nom']; ?></option>
             <?php endforeach; ?>
         </select>
 
         <h2>Production :</h2>
-        <input type="number" name="productionv" min="1" required />
+        <input type="number" name="productionupv" min="1" required />
 
         <h2>Image :</h2>
-        <input type="url" name="imagev" required />
+        <input type="url" name="imageupv" required />
         
         <br><br>
 
-        <input type="submit" name="supprimerv" value="Supprimer"/>
+        <input type="submit" name="supprimerv" value="Modifier la voiture"/>
 
     </form>
 
