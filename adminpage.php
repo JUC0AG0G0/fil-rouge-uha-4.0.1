@@ -173,6 +173,16 @@ if (isset($_POST["ajouterv"])) {
                     <h2>Suprimer une voiture</h2>
                 </div>
             </button>
+            <button class="choix" data-target="upc" >    
+                <div>
+                    <h2>Modifier un constructeur</h2>
+                </div>
+            </button>
+            <button class="choix" data-target="upv">    
+                <div>
+                    <h2>Modifier une voiture</h2>
+                </div>
+            </button>
             <button class="choix" id="supr_all" data-target="supprimer_bdd" >    
                 <div>
                     <h2>Suprimer toute la BDD</h2>
@@ -278,6 +288,40 @@ if (isset($_POST["ajouterv"])) {
                     </form>
                 </div>
             </div>
+
+
+            <div class="choisiaff" id="upc" >
+                <div class="formulaire" >
+                    <form method="post" action="">
+                        <h2>Constructeur à modifier :</h2>
+                        <select id="suppr_constructeur" name="suppr_constructeur">
+                            <?php foreach ($constructeurs as $constructeur) : ?>
+                                <option value="<?php echo $constructeur['id']; ?>" data-name="<?php echo $constructeur['nom']; ?>"><?php echo $constructeur['nom']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <input type="submit" name="supprimerc" value="Supprimer"/>
+                    </form>
+                </div>
+            </div>
+            <div class="choisiaff" id="upv">
+                <div class="formulaire">
+                    <form method="post" action="">
+
+                        <h2>Voiture à modifier :</h2>
+                        <select id="suppr_voiture" name="suppr_voiture">
+                            <?php foreach ($voitures as $voiture) : ?>
+                                <option value="<?php echo $voiture['id']; ?>" data-name="<?php echo $voiture['nom']; ?>"><?php echo $voiture['nom']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <input type="submit" name="supprimerv" value="Supprimer"/>
+
+                    </form>
+                </div>
+            </div>
+
+
             <div class="choisiaff" id="supprimer_bdd">
                 <div class="imgch"  >
                     <img src="./img/img_admin/supprimer-la-base-de-donnees.png" class="logo_admin" style="filter: brightness(0) invert(1) grayscale(100%) sepia(0%) saturate(0%);" >
