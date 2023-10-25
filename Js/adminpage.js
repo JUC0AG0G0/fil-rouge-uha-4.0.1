@@ -103,5 +103,4 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.send("supprimerc=true&suppr_constructeur=" + idASupprimer);
     });
 
-
 });
