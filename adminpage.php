@@ -240,7 +240,7 @@ if (isset($_POST["ajouterv"])) {
 
                             <br><br>
 
-                            <input type="submit" name="ajouterc" value="Ajouter ce constructeur"/>
+                            <input type="submit" name="ajouterc" value="Ajouter ce constructeur" class="buttonf" />
                         </form>
                     </div>
                 </div>
@@ -268,7 +268,7 @@ if (isset($_POST["ajouterv"])) {
                             
                             <br><br>
 
-                            <input type="submit" name="ajouterv" value="Ajouter"/>
+                            <input type="submit" name="ajouterv" value="Ajouter" class="buttonf" />
                         </form>
                     </div>
                 </div>
@@ -287,7 +287,7 @@ if (isset($_POST["ajouterv"])) {
                             
                             <br><br>
 
-                            <input type="submit" name="supprimerc" value="Supprimer"/>
+                            <input type="submit" name="supprimerc" value="Supprimer" class="buttonf" />
                         </form>
                     </div>
                 </div>
@@ -304,7 +304,7 @@ if (isset($_POST["ajouterv"])) {
                             
                             <br><br>
 
-                            <input type="submit" name="supprimerv" value="Supprimer"/>
+                            <input type="submit" name="supprimerv" value="Supprimer" class="buttonf" />
 
                         </form>
                     </div>
@@ -321,7 +321,7 @@ if (isset($_POST["ajouterv"])) {
                                 <?php endforeach; ?>
                             </select>
 
-                            <button type="button" id="chargerConstructeur">Charger le constructeur</button>
+                            <button type="button" id="chargerConstructeur" class="buttonf" >Charger le constructeur</button>
 
                             <h2>Année de création :</h2>
                             <input type="number" name="creation" id="creation" min="1000" max="9999" />
@@ -338,7 +338,7 @@ if (isset($_POST["ajouterv"])) {
 
                             <br><br>
 
-                            <input type="submit" name="modifier_constructeur" value="Modifier le constructeur"/>
+                            <input type="submit" name="modifier_constructeur" value="Modifier le constructeur" class="buttonf" />
                         </form>
 
                         <script>
@@ -377,7 +377,7 @@ if (isset($_POST["ajouterv"])) {
                                 <?php endforeach; ?>
                             </select>
 
-                            <button type="button" id="chargerVoiture">Charger la voiture</button>
+                            <button type="button" id="chargerVoiture" class="buttonf" >Charger la voiture</button>
 
                             <h2>Description :</h2>
                             <input type="text" name="descriptionupv" id="descriptionupv" required />
@@ -397,7 +397,7 @@ if (isset($_POST["ajouterv"])) {
 
                             <br><br>
 
-                            <input type="submit" name="modifier_voiture" value="Modifier la voiture"/>
+                            <input type="submit" name="modifier_voiture" value="Modifier la voiture" class="buttonf" />
                         </form>
 
                         <script>

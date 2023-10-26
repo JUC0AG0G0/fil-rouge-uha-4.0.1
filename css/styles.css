@@ -8,12 +8,17 @@ body{
     background-image: url(../img/porsche_museum.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+    
+
   
 }
 
 a{
     color: rgb(255, 255, 255);
     text-decoration: none;
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
 
 }
 

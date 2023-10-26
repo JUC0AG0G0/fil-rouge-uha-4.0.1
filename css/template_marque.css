@@ -9,6 +9,8 @@ body{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 
     input-security: script-src 'self' 'unsafe-inline';
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
 }
 
 .bg{
@@ -43,6 +45,8 @@ body{
     display: flex;
     justify-content: center;
     backdrop-filter: blur(10px);
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
     
 }
 
@@ -53,6 +57,8 @@ body{
     width: 66%;
     display: flex;
     justify-content: center;
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
 
 }
 
@@ -68,6 +74,8 @@ body{
     justify-content: center;
     vertical-align: middle;
     backdrop-filter: blur(10px);
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
 
 }
 
@@ -83,6 +91,7 @@ body{
     height: 100%;
     width: 100%;
     border-radius: 12px;
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
 
 
 }
@@ -103,6 +112,8 @@ body{
     z-index: 20;
     box-shadow: rgba(255, 255, 255, 0.4) 0px 0px 60px;
     backdrop-filter: blur(1px);
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
 
 }
 
