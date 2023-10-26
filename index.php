@@ -12,17 +12,17 @@
         <div class="selection">
             <div class="continent">
                 <div class="mmm">
-                    <a href="./constructeur.php?arabworld=0&continentaleurope=0&asiaoceania=0&europecentralasia=0&latinamericacaribbean=1&northamerica=1&subsaharanafrica=0" class="bc"><h1>AMERICA</h1></a>
+                    <a href="./america.php" class="bc"><h1>AMERICA</h1></a>
                 </div>
             </div>
             <div class="continent">
                 <div class="mmm">
-                    <a href="./constructeur.php?arabworld=1&continentaleurope=1&asiaoceania=0&europecentralasia=0&latinamericacaribbean=0&northamerica=0&subsaharanafrica=1" class="bc"><h1>EUROPE</h1></a>
+                    <a href="./europe.php" class="bc"><h1>EUROPE</h1></a>
                 </div>
             </div>
             <div class="continent">
                 <div class="mmm">
-                    <a href="./constructeur.php?arabworld=0&continentaleurope=0&asiaoceania=1&europecentralasia=1&latinamericacaribbean=0&northamerica=0&subsaharanafrica=0" class="bc"><h1>ASIA-PACIFIC</h1></a>
+                    <a href="./asia.php" class="bc"><h1>ASIA-PACIFIC</h1></a>
                 </div>
             </div>
         </div>

@@ -32,7 +32,7 @@
 
         $constructeurQuery = $bdd->prepare('SELECT * FROM ApiConstructeur 
         JOIN ApiContinent ON ApiConstructeur.pays = ApiContinent.nom_pays 
-        WHERE ApiContinent.arabworld = 1 OR ApiContinent.continentaleurope = 1 
+        WHERE ApiContinent.arabworld = 1 OR ApiContinent.continentaleurope = 1 OR ApiContinent.europecentralasia = 1 
         ORDER BY ApiConstructeur.pays, ApiConstructeur.nom ASC');
         $constructeurQuery->execute();
         $constructeurs = $constructeurQuery->fetchAll();
