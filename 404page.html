@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 page non trouver</title>
+    <link rel="stylesheet" type="text/css" href="./css/404.css">
+    <script src="./Js/adminpage.js"></script>
+</head>
+<body>
+
+    <div class="glitch-wrapper">
+        <div class="glitch-text">
+          ERROR 404: Not found
+        </div>
+      </div>
+      
+      <button type="button" id="bh" >Page principal</button>
+      
+      <script>
+        const redirectButton = document.getElementById("bh");
+    
+        redirectButton.addEventListener("click", function () {
+            window.location.href = "./index.php";
+        });
+    </script>
+      
+</body>
+</html>
