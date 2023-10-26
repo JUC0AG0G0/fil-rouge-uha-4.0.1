@@ -108,7 +108,7 @@
         </div>
     </div>
 
-    <a href="./constructeur.php">
+    <a href="javascript:history.go(-1);">
         <div class="buttonback">
             <img src="./img/97591.svg" class="imgback" style="height: 80%; width: 80%;">
         </div>
