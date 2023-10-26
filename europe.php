@@ -64,11 +64,11 @@
             $nextPage = $currentPage + 1;
     
             if ($previousPage > 0) {
-                echo '<a href="?page=' . $previousPage . '">Page précédente</a>';
+                echo '<a href="?page=' . $previousPage . '" class="button_pagination" >Page précédente</a>';
             }
     
             if ($endCountry < count($pays)) {
-                echo '<a href="?page=' . $nextPage . '">Page suivante</a>';
+                echo '<a href="?page=' . $nextPage . '" class="button_pagination" >Page suivante</a>';
             }
         ?>
     </div>
