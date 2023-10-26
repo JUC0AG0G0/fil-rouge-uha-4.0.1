@@ -87,7 +87,7 @@
                     if ($constructeurData) {
                         echo '<div><span> Marque : </span><span>' . htmlspecialchars($constructeurData['nom'], ENT_QUOTES, 'UTF-8') . '</span></div><br>';
                         echo '<div><span> Creation : </span><span>' . htmlspecialchars($constructeurData['creation'], ENT_QUOTES, 'UTF-8') . '</span></div><br>';
-                        echo '<div><span> Fondateur : </span><span>' . htmlspecialchars($constructeurData['fondateur'], ENT_QUOTES, 'UTF-8') . '</span></div><br';
+                        echo '<div><span> Fondateur : </span><span>' . htmlspecialchars($constructeurData['fondateur'], ENT_QUOTES, 'UTF-8') . '</span></div><br>';
                         
                         $usinesQuery = $bdd->prepare('SELECT u.usines FROM UsinesConstructeur u
                             INNER JOIN LinkUsines lu ON u.id = lu.idusines
