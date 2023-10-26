@@ -19,6 +19,8 @@ try {
 
 if (!$bdd_exist) {
     echo "Erreur de connexion à la base de données. Veuillez vérifier vos informations de connexion.";
+    echo '<button class="choix" id="resetbdd" data-target="res_bdds"><div><h2>Renitialiser la BDD</h2></div></button>';
+    echo '<script src="./Js/adminpage.js"></script>';
     exit;
 }
 
@@ -300,7 +302,7 @@ if (isset($_POST["ajouterv"])) {
                             
                             <br><br>
 
-                            <input type="submit" name="upgradev" value="Supprimer"/>
+                            <input type="submit" name="supprimerv" value="Supprimer"/>
 
                         </form>
                     </div>

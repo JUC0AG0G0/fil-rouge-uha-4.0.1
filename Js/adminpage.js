@@ -39,6 +39,8 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.send();
     });
 
+
+
     // Suppression de la base de données
     const supprimerButton = document.getElementById('supr_all');
     supprimerButton.addEventListener('click', function () {
@@ -52,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         xhr.send();
     });
+    
 
     // Suppression d'une voiture
     const supprimerVButton = document.querySelector('[name="supprimerv"]');
