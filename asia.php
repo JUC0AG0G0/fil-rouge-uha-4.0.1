@@ -18,7 +18,16 @@
     <div class="scroller">
         <?php
       
-       $bdd = new PDO('mysql:host=localhost;dbname=fil_rouge_401_Corneille_Jules', 'Fil_Rouge_Jules_Conrneille', '1234');
+      require_once './bdd/config.php';
+
+      // Utilisation des constantes pour se connecter à la base de données
+      $serveur = DB_SERVER;
+      $utilisateur = DB_USER;
+      $mot_de_passe = DB_PASSWORD;
+      $base_de_donnees = DB_NAME;
+      
+      
+      $bdd = new PDO('mysql:host='.$serveur.';dbname='.$base_de_donnees.'', $utilisateur, $mot_de_passe);
 
        $constructeurQuery = $bdd->prepare('SELECT DISTINCT pays FROM ApiConstructeur 
        JOIN ApiContinent ON ApiConstructeur.pays = ApiContinent.nom_pays 

@@ -4,10 +4,13 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$serveur = "localhost";
-$utilisateur = "Fil_Rouge_Jules_Conrneille";
-$mot_de_passe = "1234";
-$base_de_donnees = "fil_rouge_401_Corneille_Jules";
+require_once './bdd/config.php';
+
+// Utilisation des constantes pour se connecter à la base de données
+$serveur = DB_SERVER;
+$utilisateur = DB_USER;
+$mot_de_passe = DB_PASSWORD;
+$base_de_donnees = DB_NAME;
 
 try {
     $bdd = new PDO("mysql:host=$serveur;dbname=$base_de_donnees", $utilisateur, $mot_de_passe);

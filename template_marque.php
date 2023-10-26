@@ -14,11 +14,15 @@
             <?php
                 $numid = $_GET['id'];
 
-                $serveur = 'localhost';
-                $base_de_donnees = 'fil_rouge_401_Corneille_Jules';
-                $utilisateur = 'Fil_Rouge_Jules_Conrneille';
-                $mot_de_passe = '1234';
+                require_once './bdd/config.php';
 
+                // Utilisation des constantes pour se connecter à la base de données
+                $serveur = DB_SERVER;
+                $utilisateur = DB_USER;
+                $mot_de_passe = DB_PASSWORD;
+                $base_de_donnees = DB_NAME;
+                
+                
                 try {
                     $bdd = new PDO("mysql:host=$serveur;dbname=$base_de_donnees;charset=utf8", $utilisateur, $mot_de_passe);
 

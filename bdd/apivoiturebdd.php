@@ -1,5 +1,15 @@
 <?php
-$bdd = new PDO('mysql:host=localhost;dbname=fil_rouge_401_Corneille_Jules', 'Fil_Rouge_Jules_Conrneille', '1234');
+
+require_once './config.php';
+
+// Utilisation des constantes pour se connecter à la base de données
+$serveur = DB_SERVER;
+$utilisateur = DB_USER;
+$mot_de_passe = DB_PASSWORD;
+$base_de_donnees = DB_NAME;
+
+
+$bdd = new PDO('mysql:host='.$serveur.';dbname='.$base_de_donnees.'', $utilisateur, $mot_de_passe);
 
 $api_voitures = $bdd->prepare('SELECT * FROM ApiVoitures ORDER BY nom ASC');
 
