@@ -24,6 +24,7 @@ if (!$bdd_exist) {
     exit;
 }
 
+$conn = new PDO("mysql:host=$serveur;dbname=$base_de_donnees", $utilisateur, $mot_de_passe);
 
 
 $constructeurQuery = $bdd->prepare('SELECT id, nom FROM ApiConstructeur ORDER BY nom ASC');
@@ -128,12 +129,13 @@ if (isset($_POST["ajouterv"])) {
     $stmt->bindParam(':imagev', $imagev);
 
     try {
+        
         $stmt->execute();
+        
         // echo "Constructeur ajouté avec succès.";
     } catch (PDOException $e) {
         // echo "Erreur lors de l'ajout du constructeur : " . $e->getMessage();
-    }
-    
+    }    
 }
 
 ?>

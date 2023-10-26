@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.open('POST', './bdd/bdd_res.php', true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                alert("La base de données a été réinitialisée avec succès.");
                 location.reload(); // Actualiser la page
             }
         };
@@ -71,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.open('POST', './bdd/supprimer_voiture.php', true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                alert("La voiture " + nomVoitureASupprimer + " a été supprimée avec succès.");
+                // alert("La voiture " + nomVoitureASupprimer + " a été supprimée avec succès.");
                 location.reload(); // Actualiser la page
             }
         };
@@ -96,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.open('POST', './bdd/supprimer_constructeur.php', true); // Assurez-vous que le chemin du fichier PHP est correct
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                alert("Le constructeur " + nomConstructeurASupprimer + " a été supprimé avec succès.");
+                // alert("Le constructeur " + nomConstructeurASupprimer + " a été supprimé avec succès.");
                 location.reload(); // Actualiser la page
 
             }
