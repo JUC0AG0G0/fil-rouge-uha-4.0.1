@@ -26,7 +26,7 @@
             $constructeurQuery->execute();
             $pays = $constructeurQuery->fetchAll();
     
-            $countriesPerPage = 1;
+            $countriesPerPage = 2;
             $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
             $startCountry = ($currentPage - 1) * $countriesPerPage;
             $endCountry = $startCountry + $countriesPerPage;
@@ -63,14 +63,22 @@
             $previousPage = $currentPage - 1;
             $nextPage = $currentPage + 1;
     
-            if ($previousPage > 0) {
-                echo '<a href="?page=' . $previousPage . '" class="button_pagination" >Page précédente</a>';
-            }
-    
-            if ($endCountry < count($pays)) {
-                echo '<a href="?page=' . $nextPage . '" class="button_pagination" >Page suivante</a>';
-            }
+
         ?>
+    </div>
+    <div class="pageb">
+        <?php
+
+        if ($previousPage > 0) {
+            echo '<a href="?page=' . $previousPage . '" class="button_pagination" ><img src="./img/img_admin/fleche-gauche.png" class="pagecontrol" ></a>';
+        }
+
+        if ($endCountry < count($pays)) {
+            echo '<a href="?page=' . $nextPage . '" class="button_pagination" ><img src="./img/img_admin/fleche-droite.png" class="pagecontrol" ></a>';
+        }
+
+        ?>
+
     </div>
 </body>
 </html>

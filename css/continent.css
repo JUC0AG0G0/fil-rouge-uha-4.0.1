@@ -13,6 +13,22 @@ body{
 }
 
 
+.pageb{
+    position: absolute;
+    z-index: 10;
+    bottom: 15vh; /* Position en haut de la zone */
+    left: 50%; /* Déplacer le point de référence à mi-chemin horizontalement */
+    transform: translateX(-50%); /* Centrer horizontalement */
+    
+
+}
+
+.pagecontrol{
+    height: 60px;
+    width: 60px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
 
 
 .noir{
