@@ -181,9 +181,9 @@ button {
 
 
 .buttonf{
+    color: white;
     background-color: gray;
     padding: 3px;
-    border: black;
     cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
 
 }
