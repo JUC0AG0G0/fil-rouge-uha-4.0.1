@@ -1,61 +1,92 @@
--- Créez un utilisateur et attribuez-lui des privilèges pour la base de données fil_rouge_401_Corneille_Jules
-CREATE USER IF NOT EXISTS 'Fil_Rouge_Jules_Conrneille'@'localhost' IDENTIFIED BY '1234';
-
+-- Supprimer la base de données si elle existe déjà
 DROP DATABASE IF EXISTS fil_rouge_401_Corneille_Jules;
-CREATE DATABASE IF NOT EXISTS fil_rouge_401_Corneille_Jules;
+
+-- Créer une nouvelle base de données
+CREATE DATABASE fil_rouge_401_Corneille_Jules;
+
+-- Utiliser la base de données nouvellement créée
 USE fil_rouge_401_Corneille_Jules;
 
-
-GRANT ALL PRIVILEGES ON fil_rouge_401_Corneille_Jules.* TO 'Fil_Rouge_Jules_Conrneille'@'localhost';
-FLUSH PRIVILEGES;
-
-
--- Création de la table ApiConstructeur
-CREATE TABLE ApiConstructeur (
+-- Créer la table ApiContinent
+CREATE TABLE IF NOT EXISTS ApiContinent (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL,
-    creation INT NOT NULL,
-    fondateur VARCHAR(255) NOT NULL,
-    pays VARCHAR(50) NOT NULL
+    nom_pays VARCHAR(255) NOT NULL UNIQUE,
+    drapeaupays VARCHAR(255) NOT NULL,
+    arabworld BOOLEAN NOT NULL,
+    continentaleurope BOOLEAN NOT NULL,
+    asiaoceania BOOLEAN NOT NULL,
+    europecentralasia BOOLEAN NOT NULL,
+    latinamericacaribbean BOOLEAN NOT NULL,
+    northamerica BOOLEAN NOT NULL,
+    subsaharanafrica BOOLEAN NOT NULL
 );
 
--- Création de la table UsinesConstructeur
-CREATE TABLE UsinesConstructeur (
+-- Créer la table ApiConstructeur
+CREATE TABLE IF NOT EXISTS ApiConstructeur (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255),
+    creation VARCHAR(4),
+    fondateur VARCHAR(255),
+    pays INT,
+    FOREIGN KEY (pays) REFERENCES ApiContinent(id)
+);
+
+-- Créer la table UsinesConstructeur
+CREATE TABLE IF NOT EXISTS UsinesConstructeur (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usines VARCHAR(255) NOT NULL
 );
 
--- Création de la table LinkUsines
-CREATE TABLE LinkUsines (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+-- Créer la table LinkUsines avec les colonnes comme clés primaires
+CREATE TABLE IF NOT EXISTS LinkUsines (
     id_constructeurs INT NOT NULL,
     idusines INT NOT NULL,
+    PRIMARY KEY (id_constructeurs, idusines),
     FOREIGN KEY (id_constructeurs) REFERENCES ApiConstructeur(id),
     FOREIGN KEY (idusines) REFERENCES UsinesConstructeur(id)
-
 );
 
--- Création de la table ApiVoitures
-CREATE TABLE ApiVoitures (
+-- Créer la table ApiVoitures
+CREATE TABLE IF NOT EXISTS ApiVoitures (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     constructeur INT NOT NULL,
     production INT NOT NULL,
-    image VARCHAR(255) NOT NULL,
+    image VARCHAR(500) NOT NULL,
     FOREIGN KEY (constructeur) REFERENCES ApiConstructeur(id)
 );
+
+-- Créer l'utilisateur s'il n'existe pas
+CREATE USER IF NOT EXISTS 'Fil_Rouge_Jules_Conrneille'@'localhost' IDENTIFIED BY '1234';
+
+-- Accorder tous les privilèges à l'utilisateur sur la base de données
+GRANT ALL PRIVILEGES ON fil_rouge_401_Corneille_Jules.* TO 'Fil_Rouge_Jules_Conrneille'@'localhost';
+
+-- Mettre à jour les privilèges
+FLUSH PRIVILEGES;
+
+
+-- Insertion de données depuis la première API (constructeurs)
+INSERT INTO ApiContinent (nom_pays, drapeaupays, arabworld, continentaleurope, asiaoceania, europecentralasia, latinamericacaribbean, northamerica, subsaharanafrica)
+VALUES
+    ('France', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%29.svg/1280px-Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%29.svg.png', 0, 1, 0, 0, 0, 0, 0),
+    ('Germany', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/1920px-Flag_of_Germany.svg.png', 0, 1, 0, 0, 0, 0, 0),
+    ('United Kingdom', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg/1920px-Flag_of_the_United_Kingdom_%283-5%29.svg.png', 0, 1, 0, 0, 0, 0, 0),
+    ('Italy', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/1920px-Flag_of_Italy.svg.png', 0, 1, 0, 0, 0, 0, 0),
+    ('Japan', 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Flag_of_Japan.svg/1280px-Flag_of_Japan.svg.png', 0, 0, 1, 0, 0, 0, 0),
+    ('United States', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Flag_of_the_United_States.svg/1920px-Flag_of_the_United_States.svg.png', 0, 0, 0, 0, 1, 1, 0);
 
 -- Insertion de données depuis la première API (constructeurs)
 INSERT INTO ApiConstructeur (nom, creation, fondateur, pays)
 VALUES
-    ('Renault', 1899, 'Fernand et Marcel Renault', 'France'),
-    ('BMW', 1916, 'Gustav Otto, Karl Rapp', 'Allemagne'),
-    ('Mercedes-Benz', 1926, 'Paul Faimler, Carl Benz et Emil Jellinek-Mercedes', 'Allemagne'),
-    ('Vauxhall', 1857, 'inconnu', 'Angleterre'),
-    ('Fiat', 1899, 'Giovanni Agnelli', 'Italie'),
-    ('Honda', 1948, 'Soichiro Honda et Takeo Fujisawa', 'Japon'),
-    ('Tesla', 2003, 'Elon Musk', 'Etats-Unis');
+    ('Renault', '1899', 'Fernand et Marcel Renault', 1),
+    ('BMW', '1916', 'Gustav Otto, Karl Rapp', 2),
+    ('Mercedes-Benz', '1926', 'Paul Faimler, Carl Benz et Emil Jellinek-Mercedes', 2),
+    ('Vauxhall', '1857', 'inconnu', 3),
+    ('Fiat', '1899', 'Giovanni Agnelli', 4),
+    ('Honda', '1948', 'Soichiro Honda et Takeo Fujisawa', 5),
+    ('Tesla', '2003', 'Elon Musk', 6);
 
 -- Insertion de données des usines pour le constructeur 
 INSERT INTO UsinesConstructeur (usines)
