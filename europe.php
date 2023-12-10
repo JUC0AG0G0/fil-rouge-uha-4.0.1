@@ -19,75 +19,61 @@
         <?php
             require_once './bdd/config.php';
 
-            // Utilisation des constantes pour se connecter à la base de données
             $serveur = DB_SERVER;
             $utilisateur = DB_USER;
             $mot_de_passe = DB_PASSWORD;
             $base_de_donnees = DB_NAME;
-            
-            
+
             $bdd = new PDO('mysql:host='.$serveur.';dbname='.$base_de_donnees.'', $utilisateur, $mot_de_passe);
 
-            $constructeurQuery = $bdd->prepare('SELECT DISTINCT pays FROM ApiConstructeur 
-            JOIN ApiContinent ON ApiConstructeur.pays = ApiContinent.nom_pays 
-            WHERE ApiContinent.arabworld = 1 OR ApiContinent.continentaleurope = 1 OR ApiContinent.europecentralasia = 1 
-            ORDER BY pays ASC');
+            $constructeurQuery = $bdd->prepare('SELECT DISTINCT c.id, c.nom, c.pays, ac.drapeaupays FROM ApiConstructeur c
+                JOIN ApiContinent ac ON c.pays = ac.id
+                WHERE ac.arabworld = 1 OR ac.continentaleurope = 1 OR ac.europecentralasia = 1 
+                ORDER BY c.pays ASC, c.nom ASC');
             $constructeurQuery->execute();
-            $pays = $constructeurQuery->fetchAll();
-    
+            $marques = $constructeurQuery->fetchAll();
+
             $countriesPerPage = 2;
             $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
-            $startCountry = ($currentPage - 1) * $countriesPerPage;
-            $endCountry = $startCountry + $countriesPerPage;
-    
-            for ($i = $startCountry; $i < $endCountry; $i++) {
-                if ($i < count($pays)) {
-                    $currentCountry = $pays[$i]['pays'];
-    
-                    // Recherche du lien du drapeau du pays dans la table ApiContinent
-                    $drapeauQuery = $bdd->prepare('SELECT drapeaupays FROM ApiContinent WHERE nom_pays = ?');
-                    $drapeauQuery->execute([$currentCountry]);
-                    $drapeau = $drapeauQuery->fetch();
-    
+            $startBrand = ($currentPage - 1) * $countriesPerPage;
+            $endBrand = $startBrand + $countriesPerPage;
+
+            for ($i = $startBrand; $i < $endBrand; $i++) {
+                if ($i < count($marques)) {
+                    $currentBrand = $marques[$i];
+            
+                    $paysQuery = $bdd->prepare('SELECT nom_pays FROM ApiContinent WHERE id = ?');
+                    $paysQuery->execute([$currentBrand['pays']]);
+                    $paysData = $paysQuery->fetch();
+            
+                    $nomPays = $paysData['nom_pays'];
+            
                     echo '<div class="partie">';
-                    echo '<div class="pays"><img src="' . htmlspecialchars($drapeau['drapeaupays'], ENT_QUOTES, 'UTF-8') . '" class="imgpays"><h1 class="txtpays">' . $currentCountry . '</h1></div>';
+                    echo '<div class="pays"><img src="' . htmlspecialchars($currentBrand['drapeaupays'], ENT_QUOTES, 'UTF-8') . '" class="imgpays"><h1 class="txtpays">' . htmlspecialchars($nomPays, ENT_QUOTES, 'UTF-8') . '</h1></div>';
                     echo '<div class="marques">';
                     
-                    // Afficher les marques pour le pays actuel
-                    $constructeurQuery = $bdd->prepare('SELECT * FROM ApiConstructeur WHERE pays = ? ORDER BY nom ASC');
-                    $constructeurQuery->execute([$currentCountry]);
-                    $marques = $constructeurQuery->fetchAll();
-    
-                    foreach ($marques as $constructeur) {
-                        echo '<a href="./template_marque.php?id=' . $constructeur['id'] . '"><div class="boutondiv">';
-                        echo '<img src="./img/logo_marque/' . htmlspecialchars($constructeur['nom'], ENT_QUOTES, 'UTF-8') . '.svg" class="logoimg">';
-                        echo '</div></a>';
-                    }
-    
+                    echo '<a href="./template_marque.php?id=' . $currentBrand['id'] . '"><div class="boutondiv">';
+                    echo '<img src="./img/logo_marque/' . htmlspecialchars($currentBrand['nom'], ENT_QUOTES, 'UTF-8') . '.svg" class="logoimg">';
+                    echo '</div></a>';
+            
                     echo '</div><hr></div>';
                 }
             }
-    
-            // Afficher les boutons de pagination
+
             $previousPage = $currentPage - 1;
             $nextPage = $currentPage + 1;
-    
-
         ?>
     </div>
     <div class="pageb">
         <?php
+            if ($previousPage > 0) {
+                echo '<a href="?page=' . $previousPage . '" class="button_pagination" ><img src="./img/img_admin/fleche-gauche.png" class="pagecontrol" ></a>';
+            }
 
-        if ($previousPage > 0) {
-            echo '<a href="?page=' . $previousPage . '" class="button_pagination" ><img src="./img/img_admin/fleche-gauche.png" class="pagecontrol" ></a>';
-        }
-
-        if ($endCountry < count($pays)) {
-            echo '<a href="?page=' . $nextPage . '" class="button_pagination" ><img src="./img/img_admin/fleche-droite.png" class="pagecontrol" ></a>';
-        }
-
+            if ($endBrand < count($marques)) {
+                echo '<a href="?page=' . $nextPage . '" class="button_pagination" ><img src="./img/img_admin/fleche-droite.png" class="pagecontrol" ></a>';
+            }
         ?>
-
     </div>
 </body>
 </html>
