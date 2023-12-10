@@ -66,23 +66,25 @@
                     }
                 ?>
             </div>
-            <div class="Pays">
-                <?php
-                    if ($constructeurData) {
-                        $pays = $constructeurData['pays'];
+                <div class="Pays">
+                    <?php
+                        if ($constructeurData) {
+                            $paysId = $constructeurData['pays'];
 
-                        // Recherche du lien du drapeau du pays dans la table ApiContinent
-                        $drapeauQuery = $bdd->prepare('SELECT drapeaupays FROM ApiContinent WHERE nom_pays = ?');
-                        $drapeauQuery->execute([$pays]);
-                        $drapeau = $drapeauQuery->fetch();
+                            // Recherche du lien du drapeau du pays dans la table ApiContinent
+                            $paysQuery = $bdd->prepare('SELECT nom_pays, drapeaupays FROM ApiContinent WHERE id = ?');
+                            $paysQuery->execute([$paysId]);
+                            $paysData = $paysQuery->fetch();
 
-                        echo '<img src="' . htmlspecialchars($drapeau['drapeaupays'], ENT_QUOTES, 'UTF-8') . '" class="paysorigine">';
-
-
-                        echo '<p class="nompays">' . htmlspecialchars($pays, ENT_QUOTES, 'UTF-8') . '</p>';
-                    }
-                ?>
-            </div>
+                            if ($paysData) {
+                                echo '<img src="' . htmlspecialchars($paysData['drapeaupays'], ENT_QUOTES, 'UTF-8') . '" class="paysorigine">';
+                                echo '<p class="nompays">' . htmlspecialchars($paysData['nom_pays'], ENT_QUOTES, 'UTF-8') . '</p>';
+                            } else {
+                                echo 'Pays non trouvé dans la base de données.';
+                            }
+                        }
+                    ?>
+                </div>
             <hr class="ligne">
         </div>
         <div>
