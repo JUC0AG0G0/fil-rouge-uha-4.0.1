@@ -84,19 +84,8 @@ if (isset($_POST["ajouterc"])) {
         mkdir($videoDestination, 0777, true);
     }
 
-    // Affichez des messages de débogage pour vérifier les valeurs
-    // echo "Nom: " . $nom . "<br>";
-    // echo "Année de création: " . $creation . "<br>";
-    // echo "Fondateur: " . $fondateur . "<br>";
-    // echo "Pays d'origine: " . $pays . "<br>";
-
-    // echo "Nom du fichier du logo: " . $logoFileName . "<br>";
-    // echo "Nom du fichier de la vidéo: " . $videoFileName . "<br>";
-
-    // Déplacez les fichiers téléchargés vers les répertoires de destination
     if (move_uploaded_file($logoTempFile, $logoFilePath) && move_uploaded_file($videoTempFile, $videoFilePath)) {
-        // echo "Fichiers téléchargés avec succès.<br>";
-        // Les fichiers ont été téléchargés avec succès, ajoutez maintenant les données à la base de données
+
         $sql = "INSERT INTO `ApiConstructeur`(`nom`, `creation`, `fondateur`, `pays`) VALUES (:nom, :creation, :fondateur, :pays)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':nom', $nom);
@@ -116,30 +105,6 @@ if (isset($_POST["ajouterc"])) {
     }
 }
 
-if (isset($_POST["ajouterv"])) {
-    $nomv = $_POST['nomv'];
-    $descriptionv = $_POST['descriptionv'];
-    $constructeurv = $_POST['constructeurv'];
-    $productionv = $_POST['productionv'];
-    $imagev = $_POST['imagev'];
-
-    $sql = "INSERT INTO `ApiVoitures`(`nom`, `description`, `constructeur`, `production`, `image`) VALUES (:nomv, :descriptionv, :constructeurv, :productionv, :imagev)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':nomv', $nomv);
-    $stmt->bindParam(':descriptionv', $descriptionv);
-    $stmt->bindParam(':constructeurv', $constructeurv);
-    $stmt->bindParam(':productionv', $productionv);
-    $stmt->bindParam(':imagev', $imagev);
-
-    try {
-        
-        $stmt->execute();
-        
-        // echo "Constructeur ajouté avec succès.";
-    } catch (PDOException $e) {
-        // echo "Erreur lors de l'ajout du constructeur : " . $e->getMessage();
-    }    
-}
 
 ?>
 
@@ -247,9 +212,9 @@ if (isset($_POST["ajouterv"])) {
                         </form>
                     </div>
                 </div>
-                <div class="choisiaff" id="addv" >
-                    <div class="formulaire" >
-                        <form method="POST" action="">
+                <div class="choisiaff" id="addv">
+                    <div class="formulaire">
+                        <form id="ajoutVoitureForm" method="POST" action="">
                             <h2>Nom :</h2>
                             <input type="text" name="nomv" required />
 
@@ -268,7 +233,7 @@ if (isset($_POST["ajouterv"])) {
 
                             <h2>Image :</h2>
                             <input type="url" name="imagev" required />
-                            
+
                             <br><br>
 
                             <input type="submit" name="ajouterv" value="Ajouter" class="buttonf" />
@@ -350,14 +315,12 @@ if (isset($_POST["ajouterv"])) {
                                 const selectedId = selectElement.value;
 
                                 if (selectedId) {
-                                    // Effectuer une requête AJAX pour récupérer les données du constructeur
                                     const xhr = new XMLHttpRequest();
                                     xhr.open("GET", `./bdd/recuperer_constructeur.php?id=${selectedId}`, true);
                                     xhr.onload = function() {
                                         if (xhr.status === 200) {
                                             const data = JSON.parse(xhr.responseText);
 
-                                            // Remplir les champs avec les données récupérées
                                             document.getElementById("creation").value = data.creation;
                                             document.getElementById("fondateur").value = data.fondateur;
                                             document.getElementById("pays").value = data.pays;
@@ -409,14 +372,12 @@ if (isset($_POST["ajouterv"])) {
                                 const selectedId = selectElement.value;
 
                                 if (selectedId) {
-                                    // Effectuer une requête AJAX pour récupérer les données de la voiture
                                     const xhr = new XMLHttpRequest();
                                     xhr.open("GET", `./bdd/recuperer_voiture.php?idupv=${selectedId}`, true);
                                     xhr.onload = function() {
                                         if (xhr.status === 200) {
                                             const data = JSON.parse(xhr.responseText);
 
-                                            // Remplir les champs avec les données récupérées
                                             document.getElementById("descriptionupv").value = data.description;
                                             document.getElementById("constructeurupv").value = data.constructeur;
                                             document.getElementById("productionupv").value = data.production;
