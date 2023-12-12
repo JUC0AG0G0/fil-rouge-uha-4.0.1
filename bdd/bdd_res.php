@@ -5,6 +5,19 @@ ini_set('display_errors', 1);
 
 require_once './config.php';
 
+
+function getCountryId($connexion, $countryName) {
+    $sql = "SELECT id FROM ApiContinent WHERE nom_pays = '$countryName'";
+    $result = $connexion->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['id'];
+    } else {
+        return null;
+    }
+}
+
 // Utilisation des constantes pour se connecter à la base de données
 $serveur = DB_SERVER;
 $utilisateur = DB_USER;
@@ -52,9 +65,10 @@ $connexion->select_db($base_de_donnees);
 
 #################################################################################################################################################
 
-// Créer la table ApiContinent si elle n'existe pas
+// Création de la table ApiContinent
 $create_table_ApiContinent_query = "CREATE TABLE IF NOT EXISTS ApiContinent (
-    nom_pays VARCHAR(255) NOT NULL PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom_pays VARCHAR(255) NOT NULL,
     drapeaupays VARCHAR(255) NOT NULL,
     arabworld BOOLEAN NOT NULL,
     continentaleurope BOOLEAN NOT NULL,
@@ -63,14 +77,13 @@ $create_table_ApiContinent_query = "CREATE TABLE IF NOT EXISTS ApiContinent (
     latinamericacaribbean BOOLEAN NOT NULL,
     northamerica BOOLEAN NOT NULL,
     subsaharanafrica BOOLEAN NOT NULL
-
-
 )";
 if ($connexion->query($create_table_ApiContinent_query) === true) {
     echo "Table ApiContinent créée.<br>";
 } else {
     echo "Erreur lors de la création de la table ApiContinent : " . $connexion->error . "<br>";
 }
+
 
 #################################################################################################################################################
 
@@ -85,8 +98,9 @@ $create_table_constructeur_query = "CREATE TABLE IF NOT EXISTS ApiConstructeur (
     nom VARCHAR(255),
     creation VARCHAR(4),
     fondateur VARCHAR(255),
-    pays VARCHAR(255),
-    FOREIGN KEY (pays) REFERENCES ApiContinent(nom_pays)
+    pays INT,
+    FOREIGN KEY (pays) REFERENCES ApiContinent(id)
+
 
 )";
 if ($connexion->query($create_table_constructeur_query) === true) {
@@ -163,7 +177,6 @@ if ($connexion->query($create_table_apivoiture_query) === true) {
 } else {
     echo "Erreur lors de la création de la table ApiVoitures :  " . $connexion->error . "<br>";
 }
-
 
 
 
@@ -272,22 +285,18 @@ if ($constructeur !== false && $voitures !== false && $continentpays !== false) 
         $creation = $connexion->real_escape_string($entry['creation']);
         $fondateur = $connexion->real_escape_string($entry['fondateur']);
         $pays = $connexion->real_escape_string($entry['pays']);
-        $pays = ucfirst($pays);
+        $paysId = getCountryId($connexion, $pays);
 
-        // Vérifiez si l'ID existe déjà dans la table ApiConstructeur
-        $existing_query = "SELECT id FROM ApiConstructeur WHERE id = '$id'";
-        $existing_result = $connexion->query($existing_query);
-
-        if ($existing_result->num_rows == 0) {
-            $sql = "INSERT INTO ApiConstructeur (id, nom, creation, fondateur, pays) VALUES ('$id', '$nom', '$creation', '$fondateur', '$pays')";
-
+        if ($paysId !== null) {
+            $sql = "INSERT INTO ApiConstructeur (id, nom, creation, fondateur, pays) VALUES ('$id', '$nom', '$creation', '$fondateur', '$paysId')";
+            
             if ($connexion->query($sql) === true) {
                 echo "Données constructeur insérées avec succès dans la base de données.<br>";
             } else {
                 echo "Erreur lors de l'insertion des données : " . $connexion->error . "<br>";
             }
         } else {
-            echo "L'entrée avec l'ID $id existe déjà dans la table ApiConstructeur.<br>";
+            echo "Erreur : ID du pays non trouvé pour le constructeur '$nom'.<br>";
         }
     }
 
@@ -377,6 +386,7 @@ if ($constructeur !== false && $voitures !== false && $continentpays !== false) 
 } else {
     echo "Erreur lors de la récupération des données de l'API.";
 }
+
 
 $connexion->close();
 ?>
