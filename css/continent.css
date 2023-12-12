@@ -1,7 +1,7 @@
 body{
     margin: 0px;
     padding: 0px;
-    background-image: url(/img/porsche_museum.jpg);
+    background-image: url(../img/porsche_museum.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
@@ -9,10 +9,32 @@ body{
     z-index: 0;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
 
 }
 
 
+.pageb{
+    position: absolute;
+    z-index: 10;
+    bottom: 15vh; /* Position en haut de la zone */
+    left: 50%; /* Déplacer le point de référence à mi-chemin horizontalement */
+    transform: translateX(-50%); /* Centrer horizontalement */
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
+    
+
+}
+
+.pagecontrol{
+    height: 60px;
+    width: 60px;
+    margin-left: 50px;
+    margin-right: 50px;
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
+}
 
 
 .noir{
@@ -56,6 +78,8 @@ body{
     z-index: 5;
     box-shadow: rgba(255, 255, 255, 0.4) 0px 0px 100px;
     backdrop-filter: blur(1px);
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
 
 }
 
@@ -86,6 +110,8 @@ body{
     height: 70%;
     overflow-y: scroll;
     z-index: 10;
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
 
 }
 
@@ -96,6 +122,8 @@ body{
     width: 100%;
     height: auto;
     display: inline-block;
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
 
 }
 
@@ -122,6 +150,8 @@ body{
     width: 80%;
     display: inline-block;
     margin-left: 60px;
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
 
 }
 
@@ -131,6 +161,8 @@ body{
     height: 15vh;
     width: 10vw;
     display: inline-block;
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
 
 }
 
@@ -139,6 +171,8 @@ body{
     height: 100%;
     width: 100%;
     display: inline-block;
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
 
 }
 

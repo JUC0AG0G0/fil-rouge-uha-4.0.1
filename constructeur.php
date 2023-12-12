@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>constructeurs</title>
+    <title>Liste des Constructeurs et Voitures</title>
     <link rel="icon" type="image/png" href="./img/monkey_narotu.png">
     <link rel="stylesheet" type="text/css" href="./css/continent.css">
 </head>
@@ -12,33 +12,57 @@
     <div class="noir"></div>
     <a href="./index.php">
         <div class="buttonback">
-                <img src="./img/97591.svg" class="imgback" style="height: 80%; width: 80%;">
+            <img src="./img/97591.svg" class="imgback" style="height: 80%; width: 80%;">
         </div>
     </a>
-    <div class="scroller">        
-    <?php
-            $api_url = 'https://filrouge.uha4point0.fr/V2/car/constructeurs';
-            $ch = curl_init($api_url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $json_data = curl_exec($ch);
-            $response_data = json_decode($json_data);
-            if (is_array($response_data)) {
-                $marquesParPays = [];
-                foreach ($response_data as $item) {
-                    $pays = $item->pays;
-                    $marque = '<a href="./template_marque.php?id=' . $item->id . '"><div class="boutondiv"><img src="./img/logo_marque/' . $item->nom . '.svg" class="logoimg"></div></a>';
-                    if (!isset($marquesParPays[$pays])) {
-                        $marquesParPays[$pays] = $marque;
-                    } else {
-                        $marquesParPays[$pays] .= $marque;
-                    }
+    <div class="scroller">
+        <?php
+
+
+        $urleuropearabeworld = $_GET['arabworld'];
+        $urleuropecontinentaleurope = $_GET['continentaleurope'];
+        $urleuropeasiaoceania = $_GET['asiaoceania'];
+        $urleuropeasiaoceania = $_GET['europecentralasia'];
+        $urleuropeasiaoceania = $_GET['latinamericacaribbean'];
+        $urleuropeasiaoceania = $_GET['northamerica'];
+        $urleuropeasiaoceania = $_GET['subsaharanafrica'];
+        
+      
+        $bdd = new PDO('mysql:host=localhost;dbname=fil_rouge_401_Corneille_Jules', 'Fil_Rouge_Jules_Conrneille', '1234');
+
+        // Récupération de la liste des constructeurs par pays
+        $constructeurQuery = $bdd->prepare('SELECT * FROM ApiConstructeur ORDER BY pays, nom ASC');
+        $constructeurQuery->execute();
+        $constructeurs = $constructeurQuery->fetchAll();
+
+
+        $currentCountry = "";
+
+        foreach ($constructeurs as $constructeur) {
+            if ($constructeur['pays'] != $currentCountry) {
+                if ($currentCountry != "") {
+                    echo '</div><hr></div>';
                 }
-                foreach ($marquesParPays as $pays => $marques) {
-                    echo '<div class="partie"><div class="pays"><img src="./img/drapeau_svg/' . $pays . '.svg" class="imgpays"><h1 class="txtpays">' . $pays . '</h1></div><div class="marques">' . $marques . '</div><hr></div>';
-                }
+                $currentCountry = $constructeur['pays'];
+
+                // Recherche du lien du drapeau du pays dans la table ApiContinent
+                $drapeauQuery = $bdd->prepare('SELECT drapeaupays FROM ApiContinent WHERE nom_pays = ?');
+                $drapeauQuery->execute([$currentCountry]);
+                $drapeau = $drapeauQuery->fetch();
+
+                echo '<div class="partie">';
+                echo '<div class="pays"><img src="' . htmlspecialchars($drapeau['drapeaupays'], ENT_QUOTES, 'UTF-8') . '" class="imgpays"><h1 class="txtpays">' . $constructeur['pays'] . '</h1></div>';
+                echo '<div class="marques">';
             }
 
-            curl_close($ch);
+            echo '<a href="./template_marque.php?id=' . $constructeur['id'] . '"><div class="boutondiv">';
+            echo '<img src="./img/logo_marque/' . htmlspecialchars($constructeur['nom'], ENT_QUOTES, 'UTF-8') . '.svg" class="logoimg">';
+            echo '</div></a>';
+        }
+
+        if ($currentCountry != "") {
+            echo '</div><hr></div>';
+        }
         ?>
     </div>
 </body>

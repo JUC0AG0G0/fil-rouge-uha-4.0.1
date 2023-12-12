@@ -5,15 +5,20 @@ body{
     position: relative;
     font-family: Arial, Helvetica, sans-serif;
     color: white;
-    background-image: url(/img/porsche_museum.jpg);
+    background-image: url(../img/porsche_museum.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+    
+
   
 }
 
 a{
     color: rgb(255, 255, 255);
     text-decoration: none;
+    cursor: url('../img/img_admin/GTCURSOR.cur'), auto;
+
 
 }
 
@@ -21,7 +26,7 @@ a{
     position: absolute;
     height: 100vh;
     width: 100vw;
-    background-image: url(/img/36479.svg);
+    background-image: url(../img/36479.svg);
     background-repeat: no-repeat;
     background-size: cover;
     opacity:  100%;
@@ -71,4 +76,48 @@ a{
     backdrop-filter: blur(5px);   
     outline: 4px solid white;
     
+}
+
+
+
+.linkr{
+    background-color: rgba( 33, 33, 33, 0.8);
+    position: absolute;
+    bottom: 0px;
+    height: 25%;
+    left: 35vw;
+    width: 30vw;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px; 
+}
+
+.btn{
+    text-align: center;
+
+}
+
+
+.appuie{    
+    display: inline-block;
+    margin: 5vh;
+    margin-left: 8vh;
+    margin-right: 8vh;
+    justify-content: center;  
+    height: 10vh;
+    width: auto;
+    padding: 1vh;
+}
+
+.appuie:hover{
+    padding: 1vh;
+    border-radius: 25%;
+    box-shadow: rgba(255, 255, 255, 0.6) 0px 0px 70px;
+    background-color: rgba(255, 255, 255, 0.6) ;
+    backdrop-filter: blur(3px);
+}
+
+
+.imgadmin{
+    height: 100%;
+    width: 100%;
 }

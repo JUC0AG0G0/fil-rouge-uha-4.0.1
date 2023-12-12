@@ -3,59 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Info constructeurs</title>
+    <title>Test 9</title>
     <link rel="icon" type="image/png" href="./img/monkey_narotu.png">
     <link rel="stylesheet" type="text/css" href="./css/template_marque.css">
+    <script src="./Js/test9.js"></script>
 </head>
 <body>
     <div class="bc">
-        <video class="bc"  autoplay loop muted>
-            
+        <video class="bc" autoplay loop muted>
             <?php
-                $api_url = ('https://filrouge.uha4point0.fr/V2/car/constructeurs');
-                $ch = curl_init($api_url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $numid = $_GET['id'];
-                $json_data = curl_exec($ch);
-                $response_data = json_decode($json_data);
-                if (is_array($response_data)){
-                    foreach ($response_data as $item) {
-                        if($item->id == $numid){
-                            echo '<source  src="./video/marques/'.$item->nom.'.mp4" type="video/mp4">';
-                        }
+
+                require_once './bdd/config.php';
+
+                // Utilisation des constantes pour se connecter à la base de données
+                $serveur = DB_SERVER;
+                $utilisateur = DB_USER;
+                $mot_de_passe = DB_PASSWORD;
+                $base_de_donnees = DB_NAME;
+                
+                
+                try {
+                    $bdd = new PDO("mysql:host=$serveur;dbname=$base_de_donnees;charset=utf8", $utilisateur, $mot_de_passe);
+
+                    $constructeurQuery = $bdd->prepare('SELECT * FROM ApiConstructeur WHERE id = ?');
+                    $constructeurQuery->execute([$numid]);
+                    $constructeurData = $constructeurQuery->fetch();
+
+                    if ($constructeurData) {
+                        $videoSource = './video/marques/' . htmlspecialchars($constructeurData['nom'], ENT_QUOTES, 'UTF-8') . '.mp4';
+                        echo '<source src="' . htmlspecialchars($videoSource, ENT_QUOTES, 'UTF-8') . '" type="video/mp4">';
                     }
+                } catch (PDOException $e) {
+                    echo 'Erreur : ' . $e->getMessage();
                 }
-                curl_close($ch);
             ?>
         </video>
     </div>
-
 
     <div class="select">
         <div class="boite">
             <div class="case">
                 <a href="#" class="div-link" data-target="div1">
-
-
-                        <?php
-                            $api_url = ('https://filrouge.uha4point0.fr/V2/car/constructeurs');
-                            $ch = curl_init($api_url);
-                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                            $numid = $_GET['id'];
-                            $json_data = curl_exec($ch);
-                            $response_data = json_decode($json_data);
-                            if (is_array($response_data)){
-                                foreach ($response_data as $item) {
-                                    if($item->id == $numid){
-                                            echo '<img src="./img/logo_marque/' .$item->nom.'.svg" class="imgcase" style="filter: brightness(0) invert(1) grayscale(100%) sepia(0%) saturate(0%);">';
-                                    }
-                                }
-                            }
-                            
-                            curl_close($ch);
-                        ?>
-
-
+                    <?php
+                        if ($constructeurData) {
+                            $logoPath = './img/logo_marque/' . htmlspecialchars($constructeurData['nom'], ENT_QUOTES, 'UTF-8') . '.svg';
+                            echo '<img src="' . htmlspecialchars($logoPath, ENT_QUOTES, 'UTF-8') . '" class="imgcase" style="filter: brightness(0) invert(1) grayscale(100%) sepia(0%) saturate(0%);">';
+                        }
+                    ?>
                 </a>
             </div>
         </div>
@@ -65,104 +60,64 @@
         <div class="logopays">
             <div class="logodescri">
                 <?php
-                    $api_url = ('https://filrouge.uha4point0.fr/V2/car/constructeurs');
-                    $ch = curl_init($api_url);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    $numid = $_GET['id'];
-                    $json_data = curl_exec($ch);
-                    $response_data = json_decode($json_data);
-                    if (is_array($response_data)){
-                        foreach ($response_data as $item) {
-                            if($item->id == $numid){
-                                    echo '<img src="./img/logo_marque/'.$item->nom.'.svg" class="logodescription">';
-                                
-                            }
-                        }
+                    if ($constructeurData) {
+                        $logoPath = './img/logo_marque/' . htmlspecialchars($constructeurData['nom'], ENT_QUOTES, 'UTF-8') . '.svg';
+                        echo '<img src="' . htmlspecialchars($logoPath, ENT_QUOTES, 'UTF-8') . '" class="logodescription">';
                     }
-                    curl_close($ch);
                 ?>
             </div>
-            <div class="Pays">
-                <?php
-                    $api_url = ('https://filrouge.uha4point0.fr/V2/car/constructeurs');
-                    $ch = curl_init($api_url);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    $numid = $_GET['id'];
-                    $json_data = curl_exec($ch);
-                    $response_data = json_decode($json_data);
-                    if (is_array($response_data)){
-                        foreach ($response_data as $item) {
-                            if($item->id == $numid){
-                                    $pays = $item->pays;
-                                    // Supprimez le point inutile dans le chemin de l'image
-                                    echo '<img src="./img/drapeau_svg/' . $pays . '.svg" class="paysorigine">';
-                                    echo '<p class="nompays">' . $pays . '</p>';
-                                
+                <div class="Pays">
+                    <?php
+                        if ($constructeurData) {
+                            $paysId = $constructeurData['pays'];
+
+                            // Recherche du lien du drapeau du pays dans la table ApiContinent
+                            $paysQuery = $bdd->prepare('SELECT nom_pays, drapeaupays FROM ApiContinent WHERE id = ?');
+                            $paysQuery->execute([$paysId]);
+                            $paysData = $paysQuery->fetch();
+
+                            if ($paysData) {
+                                echo '<img src="' . htmlspecialchars($paysData['drapeaupays'], ENT_QUOTES, 'UTF-8') . '" class="paysorigine">';
+                                echo '<p class="nompays">' . htmlspecialchars($paysData['nom_pays'], ENT_QUOTES, 'UTF-8') . '</p>';
+                            } else {
+                                echo 'Pays non trouvé dans la base de données.';
                             }
                         }
-                    }
-                    curl_close($ch);
-                ?>
-            </div>
+                    ?>
+                </div>
             <hr class="ligne">
         </div>
         <div>
             <div class="div-container" id="div1">
-                
                 <?php
-                    $api_url = ('https://filrouge.uha4point0.fr/V2/car/constructeurs');
-                    $ch = curl_init($api_url);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    $numid = $_GET['id'];
-                    $json_data = curl_exec($ch);
-                    $response_data = json_decode($json_data);
-                    if (is_array($response_data)){
-                        foreach ($response_data as $item) {
-                            if($item->id == $numid){
-                                    echo '<div><span> Marque : </span><span>' . $item->nom . '</span></div><br>';
-                                    echo '<div><span> Creation : </span><span>' . $item->creation . '</span></div><br>';
-                                    echo '<div><span> Fondateur : </span><span>' . $item->fondateur . '</span></div><br>';
-                                    echo '<div><span> Usines : </span>';
-                                    foreach ($item->usines as $usine) {
-                                        echo '<span>' . $usine . '</span> ';
-                                    }
-                                    echo '</div><br>';
-                                    break;
-                                
-                            }
+                    if ($constructeurData) {
+                        echo '<div><span> Marque : </span><span>' . htmlspecialchars($constructeurData['nom'], ENT_QUOTES, 'UTF-8') . '</span></div><br>';
+                        echo '<div><span> Creation : </span><span>' . htmlspecialchars($constructeurData['creation'], ENT_QUOTES, 'UTF-8') . '</span></div><br>';
+                        echo '<div><span> Fondateur : </span><span>' . htmlspecialchars($constructeurData['fondateur'], ENT_QUOTES, 'UTF-8') . '</span></div><br>';
+                        
+                        $usinesQuery = $bdd->prepare('SELECT u.usines FROM UsinesConstructeur u
+                            INNER JOIN LinkUsines lu ON u.id = lu.idusines
+                            WHERE lu.id_constructeurs = ?');
+                        $usinesQuery->execute([$numid]);
+                        $usines = $usinesQuery->fetchAll(PDO::FETCH_COLUMN);
+                        
+                        if (!empty($usines)) {
+                            echo '<div><span> Usines : </span>';
+                            echo implode(', ', array_map(function($usine) {
+                                return htmlspecialchars($usine, ENT_QUOTES, 'UTF-8');
+                            }, $usines));
+                            echo '</div><br>';
                         }
                     }
-                    curl_close($ch);
                 ?>
             </div>
         </div>
     </div>
 
-    <script>
-        const divLinks = document.querySelectorAll('.div-link');
-        const divs = document.querySelectorAll('.div-container');
-
-        divLinks.forEach((divLink) => {
-            divLink.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                divs.forEach((div) => {
-                    div.style.display = 'none';
-                });
-
-                const targetDivId = divLink.getAttribute('data-target');
-                const targetDiv = document.getElementById(targetDivId);
-
-                targetDiv.style.display = 'block';
-            });
-        });
-    </script>
-
-    <a href="./index.php">
+    <a href="javascript:history.go(-1);">
         <div class="buttonback">
             <img src="./img/97591.svg" class="imgback" style="height: 80%; width: 80%;">
         </div>
     </a>
-
 </body>
 </html>
