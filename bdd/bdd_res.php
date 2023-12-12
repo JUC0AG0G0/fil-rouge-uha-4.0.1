@@ -31,6 +31,22 @@ if ($connexion->connect_error) {
     die("Échec de la connexion au serveur MySQL : " . $connexion->connect_error);
 }
 
+// Créer un utilisateur s'il n'existe pas
+$create_user_query = "CREATE USER IF NOT EXISTS '$utilisateur'@'$serveur' IDENTIFIED BY '$mot_de_passe'";
+if ($connexion->query($create_user_query) === true) {
+    echo "Utilisateur créé avec succès.<br>";
+
+    // Accordez tous les privilèges à l'utilisateur
+    $grant_privileges_query = "GRANT ALL PRIVILEGES ON *.* TO '$utilisateur'@'$serveur' WITH GRANT OPTION";
+    if ($connexion->query($grant_privileges_query) === true) {
+        echo "Privilèges accordés avec succès.<br>";
+    } else {
+        echo "Erreur lors de l'accord des privilèges : " . $connexion->error . "<br>";
+    }
+} else {
+    echo "Erreur lors de la création de l'utilisateur : " . $connexion->error . "<br>";
+}
+
 // Supprimer la base de données si elle existe déjà
 $drop_database_query = "DROP DATABASE IF EXISTS $base_de_donnees";
 if ($connexion->query($drop_database_query) === true) {
@@ -144,6 +160,7 @@ if ($connexion->query($create_table_usinesconstructeur_query) === true) {
 $create_table_linkusines_query = "CREATE TABLE IF NOT EXISTS LinkUsines (
     id_constructeurs INT NOT NULL,
     idusines INT NOT NULL,
+    PRIMARY KEY (id_constructeurs, idusines),
     FOREIGN KEY (id_constructeurs) REFERENCES ApiConstructeur(id),
     FOREIGN KEY (idusines) REFERENCES UsinesConstructeur(id)
 )";
@@ -310,6 +327,7 @@ if ($constructeur !== false && $voitures !== false && $continentpays !== false) 
 
 #################################################################################################################################################    
 
+    // Remplissage des info des usines
     foreach ($data_constructeur as $entry) {
         $id_constructeur = $connexion->real_escape_string($entry['id']);
         $usines = $entry['usines'];
@@ -327,11 +345,21 @@ if ($constructeur !== false && $voitures !== false && $continentpays !== false) 
 
                     $id_usine = $connexion->insert_id;
 
-                    $insert_link_query = "INSERT INTO LinkUsines (id_constructeurs, idusines) VALUES ('$id_constructeur', '$id_usine')";
-                    if ($connexion->query($insert_link_query) === true) {
-                        echo "Lien entre le constructeur ID '$id_constructeur' et l'usine ajouté à la table LinkUsines.<br>";
+                    // Vérifiez si le lien existe déjà
+                    $existing_link_query = "SELECT * FROM LinkUsines WHERE id_constructeurs = '$id_constructeur' AND idusines = '$id_usine'";
+                    $existing_link_result = $connexion->query($existing_link_query);
+
+                    if ($existing_link_result->num_rows == 0) {
+                        // Ajoutez le lien uniquement s'il n'existe pas déjà
+                        $insert_link_query = "INSERT INTO LinkUsines (id_constructeurs, idusines) VALUES ('$id_constructeur', '$id_usine')";
+                        
+                        if ($connexion->query($insert_link_query) === true) {
+                            echo "Lien entre le constructeur ID '$id_constructeur' et l'usine ajouté à la table LinkUsines.<br>";
+                        } else {
+                            echo "Erreur lors de l'ajout du lien dans la table LinkUsines : " . $connexion->error . "<br>";
+                        }
                     } else {
-                        echo "Erreur lors de l'ajout du lien dans la table LinkUsines : " . $connexion->error . "<br>";
+                        echo "Le lien entre le constructeur ID '$id_constructeur' et l'usine existe déjà dans la table LinkUsines.<br>";
                     }
                 } else {
                     echo "Erreur lors de l'ajout de l'usine dans la table UsinesConstructeur : " . $connexion->error . "<br>";
@@ -340,15 +368,26 @@ if ($constructeur !== false && $voitures !== false && $continentpays !== false) 
                 $row = $existing_usine_result->fetch_assoc();
                 $id_usine = $row['id'];
 
-                $insert_link_query = "INSERT INTO LinkUsines (id_constructeurs, idusines) VALUES ('$id_constructeur', '$id_usine')";
-                if ($connexion->query($insert_link_query) === true) {
-                    echo "Lien entre le constructeur ID '$id_constructeur' et l'usine ajouté à la table LinkUsines.<br>";
+                // Vérifiez si le lien existe déjà
+                $existing_link_query = "SELECT * FROM LinkUsines WHERE id_constructeurs = '$id_constructeur' AND idusines = '$id_usine'";
+                $existing_link_result = $connexion->query($existing_link_query);
+
+                if ($existing_link_result->num_rows == 0) {
+                    // Ajoutez le lien uniquement s'il n'existe pas déjà
+                    $insert_link_query = "INSERT INTO LinkUsines (id_constructeurs, idusines) VALUES ('$id_constructeur', '$id_usine')";
+                    
+                    if ($connexion->query($insert_link_query) === true) {
+                        echo "Lien entre le constructeur ID '$id_constructeur' et l'usine ajouté à la table LinkUsines.<br>";
+                    } else {
+                        echo "Erreur lors de l'ajout du lien dans la table LinkUsines : " . $connexion->error . "<br>";
+                    }
                 } else {
-                    echo "Erreur lors de l'ajout du lien dans la table LinkUsines : " . $connexion->error . "<br>";
+                    echo "Le lien entre le constructeur ID '$id_constructeur' et l'usine existe déjà dans la table LinkUsines.<br>";
                 }
             }
         }
     }
+
 
 
     
