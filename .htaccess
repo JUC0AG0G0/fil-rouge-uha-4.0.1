@@ -1,1 +1,1 @@
-ErrorDocument 404 http://localhost/111/4.0.1-fil-rouge-corneille-jules/404page.html
+ErrorDocument 404 http://192.168.1.37:8401/404page.html

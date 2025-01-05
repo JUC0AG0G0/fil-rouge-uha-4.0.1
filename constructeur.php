@@ -28,7 +28,7 @@
         $urleuropeasiaoceania = $_GET['subsaharanafrica'];
         
       
-        $bdd = new PDO('mysql:host=localhost;dbname=fil_rouge_401_Corneille_Jules', 'Fil_Rouge_Jules_Conrneille', '1234');
+        $bdd = new PDO('mysql:host=db;dbname=fil_rouge_401_Corneille_Jules', 'Fil_Rouge_Jules_Conrneille', '1234');
 
         // Récupération de la liste des constructeurs par pays
         $constructeurQuery = $bdd->prepare('SELECT * FROM ApiConstructeur ORDER BY pays, nom ASC');

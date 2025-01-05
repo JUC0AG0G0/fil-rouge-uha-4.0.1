@@ -58,10 +58,10 @@ CREATE TABLE IF NOT EXISTS ApiVoitures (
 );
 
 -- Créer l'utilisateur s'il n'existe pas
-CREATE USER IF NOT EXISTS 'Fil_Rouge_Jules_Conrneille'@'localhost' IDENTIFIED BY '1234';
+CREATE USER IF NOT EXISTS 'Fil_Rouge_Jules_Conrneille'@'db' IDENTIFIED BY '1234';
 
 -- Accorder tous les privilèges à l'utilisateur sur la base de données
-GRANT ALL PRIVILEGES ON fil_rouge_401_Corneille_Jules.* TO 'Fil_Rouge_Jules_Conrneille'@'localhost';
+GRANT ALL PRIVILEGES ON fil_rouge_401_Corneille_Jules.* TO 'Fil_Rouge_Jules_Conrneille'@'db';
 
 -- Mettre à jour les privilèges
 FLUSH PRIVILEGES;

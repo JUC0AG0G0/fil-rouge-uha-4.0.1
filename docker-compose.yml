@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+    container_name: Fil_rouge_1_front
+    ports:
+      - "8401:80"
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - local_net
+
+  db:
+    image: mariadb:10.5
+    container_name: mysql_fil_rouge
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: fil_rouge_401_Corneille_Jules
+      MYSQL_USER: Fil_Rouge_Jules_Conrneille
+      MYSQL_PASSWORD: 1234
+    volumes:
+      - ./bdd:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - local_net
+
+  phpmyadmin:
+    image: arm64v8/phpmyadmin
+    container_name: phpmyadmin_fil_rouge
+    restart: always
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "8846:80"
+    networks:
+      - local_net
+
+networks:
+  local_net:
+    driver: bridge

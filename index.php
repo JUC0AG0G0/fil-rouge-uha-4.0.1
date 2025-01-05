@@ -29,7 +29,7 @@
         <div class="linkr">
             <div class="btn">
                 <div class="appuie" >
-                    <a href="https://git.uha4point0.fr/UHA40/fil-rouge-2023/4.0.1/4.0.1-fil-rouge-corneille-jules"  >
+                    <a href="https://github.com/JUC0AG0G0/fil-rouge-uha-4.0.1/tree/master"  >
                         <img src="./img/img_admin/git.png" class="imgadmin">
                     </a>
                 </div>
